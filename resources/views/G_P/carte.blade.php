@@ -171,6 +171,8 @@
             
             if (xhr.readyState === 4 && xhr.status === 200){
                 let data = JSON.parse(xhr.responseText);
+                console.log(data);
+                // return
                 data_array.push(data)
                 dd += parseInt(data);
                 document.getElementById('Prix').textContent = dd;

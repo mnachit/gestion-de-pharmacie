@@ -30,6 +30,7 @@ class ShowDataController extends Controller
 
         // dd($product);
         return view('G_P.shop-single', ['shop_single' => $product]);
+        // return redirect();
     }
 
     public function showNew()
