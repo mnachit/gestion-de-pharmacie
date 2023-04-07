@@ -45,7 +45,11 @@
                     </div>
   
                 </div>
+                @auth
+                @if(auth()->check())
                 <p><a href="{{ route('carte',$shop_single->id)}}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
+                @endif
+                @endauth
             </div>
         </div>
     </div>

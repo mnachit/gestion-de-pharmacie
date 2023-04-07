@@ -50,7 +50,11 @@
                 <li class="active"><a href="/index">Home</a></li>
                 <li><a href="{{url('/Shop')}}">Store</a></li>
                 <li><a href="">About</a></li>
+                @auth
+                @if(auth()->check())
                 <li><a href="/Contact">Contact</a></li>
+                @endif
+                @endauth
               </ul>
             </nav>
           </div>

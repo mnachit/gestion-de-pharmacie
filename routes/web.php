@@ -74,7 +74,6 @@ Route::get('/shop-single/{id}', function () {
 
     Route::get('/shop-single/{id}',[ShowDataController::class,'shop_single'])->name('shop-single');
 
-    // Route::GET('/panier/{id}',[PanierController::class,'addToPanier'])->name('ee');
 
     Route::middleware(['auth','checkRole'])->group(function(){
         Route::view('/Carte', 'G_P.carte');
@@ -83,8 +82,10 @@ Route::get('/shop-single/{id}', function () {
         Route::GET('Checkout',[PanierController::class,'Checkout'])->name('Checkout');
         Route::GET('/DeletePr/{id}',[PanierController::class,'DeletePr'])->name('DeletePr');
         Route::GET('/Show_Prix/{id}',[PanierController::class,'Shhow'])->name('DeletePr');
+
+        Route::view('/Contact', 'G_P.Contact');
+        Route::view('/Profile', 'G_P.Profile');
+        Route::view('/thankyou', 'G_P.ThankYou');
+        Route::POST('/Update-Profile/{id}',[UserController::class,'Update_P'])->name('Update_Profile');
     });
-    Route::view('/Contact', 'G_P.Contact');
-    Route::view('/Profile', 'G_P.Profile');
-    Route::view('/thankyou', 'G_P.ThankYou');
-    Route::POST('/Update-Profile/{id}',[UserController::class,'Update_P'])->name('Update_Profile');
+    

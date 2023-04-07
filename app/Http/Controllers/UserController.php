@@ -6,6 +6,7 @@ use App\Http\Requests\StoreuserRequest;
 use App\Http\Requests\UpdateuserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -64,7 +65,7 @@ class UserController extends Controller
         $user->Address = $request->address;
         $user->Postcode = $request->post;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->Country = $request->country;
         $user->Region = $request->state;
 
