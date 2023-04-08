@@ -129,3 +129,9 @@
         </div>
     </div>
 </div>
+
+@if (session('openLogin'))
+<script>
+    $('#modal-task2').modal('show');
+</script>
+@endif

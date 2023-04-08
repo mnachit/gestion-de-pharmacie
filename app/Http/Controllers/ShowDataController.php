@@ -35,16 +35,13 @@ class ShowDataController extends Controller
 
     public function showNew()
     {
-        $test = new PanierController;
-        $test->check();
+        // $test = new PanierController;
+        // $test->check();
 
-        // return view('G_P.index');
-        $startDate = Carbon::now()->subDays(5)->startOfDay();
-        $endDate = Carbon::now();
+        // $startDate = Carbon::now()->subDays(5)->startOfDay();
+        // $endDate = Carbon::now();
 
-        $Product = Produit::select('*')
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->get();
+        $Product = Produit::orderBy('id', 'desc')->take(3)->get();
         return view('G_P.index', ['Data_Shop1' => $Product]);
     }
 

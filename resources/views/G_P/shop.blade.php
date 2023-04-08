@@ -123,9 +123,8 @@
         <div class="col-lg-6">
           <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Reference</h3>
           <button type="button" class="btn btn-secondary btn-md dropdown-toggle px-4" id="dropdownMenuReference"
-            data-toggle="dropdown">Reference</button>
+            data-toggle="dropdown"></button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-            <a class="dropdown-item" href="#">Relevance</a>
             <a class="dropdown-item" href="#">Name, A to Z</a>
             <a class="dropdown-item" href="#">Name, Z to A</a>
           </div>
@@ -165,4 +164,51 @@
       </div>
     </div>
   </div>
+
+
+
+  <script>
+    // get the dropdown menu element and the list of items to be sorted
+const dropdownMenu = document.querySelector('#dropdownMenuReference');
+const itemsList = document.querySelectorAll('.item');
+
+// add an event listener to the dropdown menu options
+dropdownMenu.addEventListener('click', function(event) {
+  // get the selected option
+  const selectedOption = event.target.textContent.trim();
+
+  // sort the items based on the selected option
+  if (selectedOption === 'Name, A to Z') {
+    sortItemsBy('asc');
+  } else if (selectedOption === 'Name, Z to A') {
+    sortItemsBy('desc');
+  }
+});
+
+// function to sort the items based on the given order (asc or desc)
+function sortItemsBy(order) {
+  // convert the items list to an array and sort it based on the name
+  const itemsArray = Array.from(itemsList);
+  itemsArray.sort(function(a, b) {
+    const nameA = a.querySelector('h3 a').textContent.trim();
+    const nameB = b.querySelector('h3 a').textContent.trim();
+    if (nameA < nameB) {
+      return order === 'asc' ? -1 : 1;
+    } else if (nameA > nameB) {
+      return order === 'asc' ? 1 : -1;
+    } else {
+      return 0;
+    }
+  });
+
+  // remove the existing items from the DOM and append the sorted items
+  itemsList.forEach(function(item) {
+    item.remove();
+  });
+  itemsArray.forEach(function(item) {
+    document.querySelector('.row').appendChild(item);
+  });
+}
+
+  </script>
 @endsection

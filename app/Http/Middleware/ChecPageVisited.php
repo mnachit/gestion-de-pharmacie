@@ -3,9 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
-class checkRole
+class ChecPageVisited
 {
     /**
      * Handle an incoming request.
@@ -16,19 +17,10 @@ class checkRole
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->check() && auth()->user()->Role == 'USER'){
-            
-            return $next($request);
+        if (!Session::has('index_page_visited')) {
+            return redirect()->route('carte');
         }
-        else
-        {
-            // Store the intended URL in the session
-            session()->put('url.intended', url()->current());
 
-            // Redirect the user to the login page
-            // return redirect()->route('index');
-            return redirect()->back();
-            
-        }
+        return $next($request);
     }
 }

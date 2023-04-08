@@ -36,11 +36,12 @@
       
       <div class="row">
         <div class="col-md-12 block-3 products-wrap">
-          <div class="nonloop-block-3">
+          <div class="nonloop-block-3 d-flex justify-content-around">
             @foreach ($Data_Shop1 as $datta)
             
             <div class="col-sm-6 col-lg-4 text-center item mb-4">
             <a href="{{ route('shop-single',$datta->id)}}"> <img src="{{ asset('img/blogs/'. $datta->image)}}" alt="Image"></a>
+            
             <h3 class="text-dark"><a href="{{ route('shop-single',$datta->id)}}">{{$datta->Name}}</a></h3>
             <p class="price"><del>95.00</del> &mdash; $55.00</p>
           </div>

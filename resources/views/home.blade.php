@@ -1,3 +1,7 @@
+@if (session()->has('unregistered'))
+    {!! session('unregistered') !!}
+@endif
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,7 +82,7 @@
                 <a href="{{route('dashbord')}}" class="dropdown-item">Dasbord</a>
                 @endif
                 @endauth
-                <a href="#" class="dropdown-item">Settings</a>
+                <a href="/order-tracking" class="dropdown-item">order tracking</a>
                 <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">Log Out</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

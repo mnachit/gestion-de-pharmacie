@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Panier;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -116,6 +117,14 @@ class PanierController extends Controller
             }
         }
         return response()->json($totalPrice);
+    }
+
+
+    public function index()
+    {
+        Session::put('index_page_visited', true);
+
+        // return view or redirect to the index page
     }
 
 }

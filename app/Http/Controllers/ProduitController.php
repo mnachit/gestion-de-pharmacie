@@ -142,4 +142,9 @@ class ProduitController extends Controller
 
          return redirect('Add_Prduct');
     }
+
+    public function k()
+    {
+        
+    }
 }

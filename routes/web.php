@@ -67,7 +67,7 @@ Route::get('/shop-single/{id}', function () {
 
     Route::get('/Shop',[ShowDataController::class,'show']);
     // Route::get('/Home',[ShowDataController::class,'showNew']);
-    Route::get('/index',[ShowDataController::class,'showNew']);
+    Route::get('/index',[ShowDataController::class,'showNew'])->name('index');
     
 
     Route::get('/app',[ProduitController::class,'index']);
@@ -75,7 +75,7 @@ Route::get('/shop-single/{id}', function () {
     Route::get('/shop-single/{id}',[ShowDataController::class,'shop_single'])->name('shop-single');
 
 
-    Route::middleware(['auth','checkRole'])->group(function(){
+    Route::middleware(['checkRole'])->group(function(){
         Route::view('/Carte', 'G_P.carte');
         Route::GET('/panier/{id}',[PanierController::class,'addToPanier'])->name('carte')->middleware(['auth']);;
         Route::get('/Carte',[PanierController::class,'ShowPainer']);
@@ -87,5 +87,6 @@ Route::get('/shop-single/{id}', function () {
         Route::view('/Profile', 'G_P.Profile');
         Route::view('/thankyou', 'G_P.ThankYou');
         Route::POST('/Update-Profile/{id}',[UserController::class,'Update_P'])->name('Update_Profile');
+        Route::view('/order-tracking', 'G_P.order')->name('');
     });
     

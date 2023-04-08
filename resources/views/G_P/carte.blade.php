@@ -128,6 +128,34 @@
         </div>
     </div>
 </div>
+
+@if(session('display_modal'))
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    Modal content goes here.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#myModal').modal('show');
+    </script>
+
+    <?php session()->forget('display_modal'); ?>
+@endif
+
+
     <script>
       function checkCheckbox() {
         const updateBtns = document.querySelectorAll('.updateBtn');
@@ -172,7 +200,6 @@
             if (xhr.readyState === 4 && xhr.status === 200){
                 let data = JSON.parse(xhr.responseText);
                 console.log(data);
-                // return
                 data_array.push(data)
                 dd += parseInt(data);
                 document.getElementById('Prix').textContent = dd;
