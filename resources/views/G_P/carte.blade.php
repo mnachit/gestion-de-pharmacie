@@ -65,13 +65,17 @@
                             </div>
                             </td>
                             @if ($Cartes->Sold == 0)
-                            <td class="text-right font-weight-semibold align-middle p-4">${{$Cartes->Price}}</td>
+                            <td class="text-right font-weight-semibold align-middle p-4" id="test1_{{$key}}">${{$Cartes->Price}}</td>
                             @else
                             <td class="text-right font-weight-semibold align-middle p-4" id="test1_{{$key}}"><del>${{$Cartes->Price}}</del></td>
                             @endif
                             <td class="text-right font-weight-semibold align-middle p-4" id="test2_{{$key}}">${{$Cartes->Sold}}</td>
-                            <td class="align-middle p-4"><input type="text" class="form-control text-center test" value="1" id="test_{{$key}}" onkeyup="test({{$key}})"></td>
-                            <td class="text-right font-weight-semibold align-middle p-4">${{$Cartes->Price}}</td>
+                            <td class="align-middle p-4"><input type="text" class="form-control text-center test" value="0" id="test_{{$key}}" onkeyup="test({{$key}})"></td>
+                            {{-- @if ($Cartes->Sold == 0) --}}
+                            <td type="number" class="text-right font-weight-semibold align-middle p-4" id="total_{{$key}}">$0</td>
+                            {{-- @else --}}
+                            {{-- <td type="number" class="text-right font-weight-semibold align-middle p-4" id="total_{{$key}}">${{$Cartes->Sold}}</td> --}}
+                            {{-- @endif --}}
                             <td class="text-center align-middle px-0"><a href="/DeletePr/{{$Cartes->id}}" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
                         </tr>
                     @endforeach
@@ -93,7 +97,7 @@
                 <div class="text-right mt-4">
                   <label class="text-muted font-weight-normal m-0">Total price</label>
                   
-                  <div class="text-large" id="Prix">0</div>
+                  <div class="text-large" id="Prix">$0</div>
                   {{-- @endforeach --}}
                 </div>
               </div>
@@ -167,20 +171,41 @@
 </script>
 
   <script>
+    var vvar = 0;
+    var price = 0;
+    let sold = 0;
     function test(key)
     {
-      let price = document.getElementById('test1_'+key).value;
-      console.log(price);
-      // const priceVal = parseInt(document.getElementById('test1_'+key).textContent.replace("$",""));
-      // console.log(priceVal);
-      // const testVal = parseInt(document.getElementById('test_0').textContent);
-      // const soldVal = parseInt(document.getElementById('test2_0').textContent.replace("$",""));
-      // let totalVal = 0;
-      // if (soldVal === 0) {
-      //   console.log(priceVal);
-      // } else {
-      //   console.log(soldVal);
-      // }
+      let dd = 0
+      let dd1 = 0
+      document.getElementById('Prix').textContent = ""
+      let price1 = document.getElementById('test_'+key).value;
+      price = document.getElementById('test1_'+key).textContent.replace("$","");
+      sold = document.getElementById('test2_'+key).textContent.replace("$","");
+      // console.log(price1);
+      if (price1 == 0) {
+        // Use the current value of total_${key} to update vvar
+        let total = document.getElementById('total_'+key).textContent.replace("$","");
+        vvar = 0;
+      }
+      else if (sold > 0)
+      {
+        document.getElementById('total_'+key).textContent = "$" +sold * price1;
+        dd = sold * price1;
+        if (price1 == 0)
+        {
+          document.getElementById('total_'+key).textContent = "$" + 0
+        }
+      }
+      else
+      {
+        document.getElementById('total_'+key).textContent = "$" +price * price1;
+        dd = price * price1;
+        price = 0
+      }
+      vvar += dd;
+      // console.log(vvar);
+      document.getElementById('Prix').textContent = "$" +vvar;
     }
     function checkCheckbox() {
       const updateBtns = document.querySelectorAll('.updateBtn');
