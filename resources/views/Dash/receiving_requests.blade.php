@@ -17,6 +17,7 @@
                             <tr>
                             <th>Order ID</th>
                             <th>Customer Name</th>
+                            <th>Product Name</th>
                             <th>Order Date</th>
                             <th>Status</th>
                             <th>Product Price</th>
@@ -24,12 +25,14 @@
                             <th>Total Price</th>
                             <th>Address</th>
                             <th>Mobile</th>
+                            <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                             <td>001</td>
                             <td>John Smith</td>
+                            <td>Doliprane</td>
                             <td>2023-04-01</td>
                             <td>Processing</td>
                             <td>$20</td>
@@ -37,28 +40,10 @@
                             <td>$25</td>
                             <td>123 Main St</td>
                             <td>555-123-4567</td>
-                            </tr>
-                            <tr>
-                            <td>002</td>
-                            <td>Jane Doe</td>
-                            <td>2023-04-02</td>
-                            <td>Shipped</td>
-                            <td>$35</td>
-                            <td>$8</td>
-                            <td>$43</td>
-                            <td>456 Elm St</td>
-                            <td>555-234-5678</td>
-                            </tr>
-                            <tr>
-                            <td>003</td>
-                            <td>Mark Johnson</td>
-                            <td>2023-04-03</td>
-                            <td>Delivered</td>
-                            <td>$45</td>
-                            <td>$10</td>
-                            <td>$55</td>
-                            <td>789 Oak St</td>
-                            <td>555-345-6789</td>
+                            <td class="d-flex justify-content-around font-weight-bold">
+                                <a href="" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a>
+                                <a href="" class="shop-tooltip close float-none text-success" title="" data-original-title="Remove"><i class="bi bi-cart-check-fill"></i></a>
+                            </td>
                             </tr>
                         </tbody>
                         </table>
