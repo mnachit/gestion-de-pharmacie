@@ -52,7 +52,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach ($Carte as $Cartes)
+                    @foreach ($Carte as $key => $Cartes)
                         <tr>
                             <td class="p-4">
                             <div class="media align-items-center">
@@ -67,11 +67,11 @@
                             @if ($Cartes->Sold == 0)
                             <td class="text-right font-weight-semibold align-middle p-4">${{$Cartes->Price}}</td>
                             @else
-                            <td class="text-right font-weight-semibold align-middle p-4"><del>${{$Cartes->Price}}</del></td>
+                            <td class="text-right font-weight-semibold align-middle p-4" id="test1_{{$key}}"><del>${{$Cartes->Price}}</del></td>
                             @endif
-                            <td class="text-right font-weight-semibold align-middle p-4">${{$Cartes->Sold}}</td>
-                            <td class="align-middle p-4"><input type="text" class="form-control text-center" value="1" id="test"></td>
-                            <td class="text-right font-weight-semibold align-middle p-4">${{$Cartes->Price * $value}}</td>
+                            <td class="text-right font-weight-semibold align-middle p-4" id="test2_{{$key}}">${{$Cartes->Sold}}</td>
+                            <td class="align-middle p-4"><input type="text" class="form-control text-center test" value="1" id="test_{{$key}}" onkeyup="test({{$key}})"></td>
+                            <td class="text-right font-weight-semibold align-middle p-4">${{$Cartes->Price}}</td>
                             <td class="text-center align-middle px-0"><a href="/DeletePr/{{$Cartes->id}}" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
                         </tr>
                     @endforeach
@@ -162,9 +162,26 @@
   input.addEventListener('input', () => {
       value = input.value;
   });
+
+  
 </script>
 
   <script>
+    function test(key)
+    {
+      let price = document.getElementById('test1_'+key).value;
+      console.log(price);
+      // const priceVal = parseInt(document.getElementById('test1_'+key).textContent.replace("$",""));
+      // console.log(priceVal);
+      // const testVal = parseInt(document.getElementById('test_0').textContent);
+      // const soldVal = parseInt(document.getElementById('test2_0').textContent.replace("$",""));
+      // let totalVal = 0;
+      // if (soldVal === 0) {
+      //   console.log(priceVal);
+      // } else {
+      //   console.log(soldVal);
+      // }
+    }
     function checkCheckbox() {
       const updateBtns = document.querySelectorAll('.updateBtn');
       let count = 0;
