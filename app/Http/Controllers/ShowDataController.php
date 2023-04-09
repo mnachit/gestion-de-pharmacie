@@ -41,8 +41,13 @@ class ShowDataController extends Controller
         // $startDate = Carbon::now()->subDays(5)->startOfDay();
         // $endDate = Carbon::now();
 
+        $test = new PanierController;
+        $test->check();
+
         $Product = Produit::orderBy('id', 'desc')->take(3)->get();
         return view('G_P.index', ['Data_Shop1' => $Product]);
+
+
     }
 
 }

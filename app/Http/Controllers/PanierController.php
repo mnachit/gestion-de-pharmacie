@@ -81,6 +81,8 @@ class PanierController extends Controller
 
     public function Checkout()
     {
+        Session::put('index_page_visited', true);
+
         return view('G_P.Checkout');
     }
 

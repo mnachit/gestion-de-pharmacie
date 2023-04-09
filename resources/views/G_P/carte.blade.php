@@ -60,7 +60,7 @@
                                 {{-- <span class="comet-checkbox-circle" id="{{$Cartes->id}}"></span> --}}
                                 <img src="{{ asset('img/blogs/'. $Cartes->image)}}" class="d-block ui-w-40 ui-bordered mr-4" alt="">
                                 <div class="media-body">
-                                <a href="#" class="d-block text-dark">{{$Cartes->Name}}</a>
+                                <a href="shop-single/{{$Cartes->id}}" class="d-block text-dark">{{$Cartes->Name}}</a>
                                 </div>
                             </div>
                             </td>
@@ -70,8 +70,8 @@
                             <td class="text-right font-weight-semibold align-middle p-4"><del>${{$Cartes->Price}}</del></td>
                             @endif
                             <td class="text-right font-weight-semibold align-middle p-4">${{$Cartes->Sold}}</td>
-                            <td class="align-middle p-4"><input type="text" class="form-control text-center" value="2"></td>
-                            <td class="text-right font-weight-semibold align-middle p-4">$115.1</td>
+                            <td class="align-middle p-4"><input type="text" class="form-control text-center" value="1" id="test"></td>
+                            <td class="text-right font-weight-semibold align-middle p-4">${{$Cartes->Price * $value}}</td>
                             <td class="text-center align-middle px-0"><a href="/DeletePr/{{$Cartes->id}}" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
                         </tr>
                     @endforeach
@@ -155,25 +155,33 @@
     <?php session()->forget('display_modal'); ?>
 @endif
 
+<script>
+  const input = document.getElementById('test');
+  let value = input.value;
 
-    <script>
-      function checkCheckbox() {
-        const updateBtns = document.querySelectorAll('.updateBtn');
-        let count = 0;
-        for (let i = 0; i < updateBtns.length; i++) {
-          if (updateBtns[i].checked) {
-            count++;
-          }
-        }
-        if (count > 1) {
-          href="/Checkout"
-        } else if (count < 1) {
-          alert('Please select input element.');
-        } else {
-          window.location.href = "/Checkout";
+  input.addEventListener('input', () => {
+      value = input.value;
+  });
+</script>
+
+  <script>
+    function checkCheckbox() {
+      const updateBtns = document.querySelectorAll('.updateBtn');
+      let count = 0;
+      for (let i = 0; i < updateBtns.length; i++) {
+        if (updateBtns[i].checked) {
+          count++;
         }
       }
-    </script>
+      if (count > 1) {
+        href="/Checkout"
+      } else if (count < 1) {
+        alert('Please select input element.');
+      } else {
+        window.location.href = "/Checkout";
+      }
+    }
+  </script>
   <script>
     var dd=0;
     var data_array = [];

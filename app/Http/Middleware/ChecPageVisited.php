@@ -18,7 +18,7 @@ class ChecPageVisited
     public function handle(Request $request, Closure $next)
     {
         if (!Session::has('index_page_visited')) {
-            return redirect()->route('carte');
+            return redirect()->route('index');
         }
 
         return $next($request);

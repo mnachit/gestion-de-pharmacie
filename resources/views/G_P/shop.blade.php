@@ -28,15 +28,6 @@
   <div class="site-section">
     <div class="container">
       <div class="row">
-        <div class="col-lg-6">
-          <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Reference</h3>
-          <button type="button" class="btn btn-secondary btn-md dropdown-toggle px-4" id="dropdownMenuReference"
-            data-toggle="dropdown"></button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-            <a class="dropdown-item" href="#" onclick="Sort('az')">Name, A to Z</a>
-            <a class="dropdown-item" href="#" onclick="Sort('za')">Name, Z to A</a>
-          </div>
-        </div>
         <div class="col-md-6">
             <div class="form">
                 <i class="fa fa-search"></i>

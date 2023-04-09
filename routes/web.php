@@ -76,8 +76,8 @@ Route::get('/shop-single/{id}', function () {
 
 
     Route::middleware(['checkRole'])->group(function(){
-        Route::view('/Carte', 'G_P.carte');
-        Route::GET('/panier/{id}',[PanierController::class,'addToPanier'])->name('carte')->middleware(['auth']);;
+        Route::view('/Carte', 'G_P.carte')->name('Cartte');
+        Route::GET('/panier/{id}',[PanierController::class,'addToPanier'])->name('carte')->middleware(['auth']);
         Route::get('/Carte',[PanierController::class,'ShowPainer']);
         Route::GET('Checkout',[PanierController::class,'Checkout'])->name('Checkout');
         Route::GET('/DeletePr/{id}',[PanierController::class,'DeletePr'])->name('DeletePr');
