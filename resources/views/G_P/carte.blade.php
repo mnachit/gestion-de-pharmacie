@@ -182,30 +182,25 @@
       let price1 = document.getElementById('test_'+key).value;
       price = document.getElementById('test1_'+key).textContent.replace("$","");
       sold = document.getElementById('test2_'+key).textContent.replace("$","");
-      // console.log(price1);
       if (price1 == 0) {
-        // Use the current value of total_${key} to update vvar
-        let total = document.getElementById('total_'+key).textContent.replace("$","");
+        document.getElementById('total_'+key).textContent = "$" +0;
         vvar = 0;
       }
       else if (sold > 0)
       {
+        dd += sold * price1;
         document.getElementById('total_'+key).textContent = "$" +sold * price1;
-        dd = sold * price1;
-        if (price1 == 0)
-        {
-          document.getElementById('total_'+key).textContent = "$" + 0
-        }
       }
-      else
+      else if
       {
+        dd += price * price1;
         document.getElementById('total_'+key).textContent = "$" +price * price1;
-        dd = price * price1;
-        price = 0
       }
       vvar += dd;
+      
+      
       // console.log(vvar);
-      document.getElementById('Prix').textContent = "$" +vvar;
+      // document.getElementById('Prix').textContent = "$" +vvar;
     }
     function checkCheckbox() {
       const updateBtns = document.querySelectorAll('.updateBtn');
@@ -216,7 +211,7 @@
         }
       }
       if (count > 1) {
-        href="/Checkout"
+        window.location.href = "/Checkout";
       } else if (count < 1) {
         alert('Please select input element.');
       } else {
@@ -224,7 +219,7 @@
       }
     }
   </script>
-  <script>
+  {{-- <script>
     var dd=0;
     var data_array = [];
     document.getElementById('Prix').textContent = 0;
@@ -256,7 +251,7 @@
             }
         };
     };
-</script>
+</script> --}}
 
 
 @endsection
