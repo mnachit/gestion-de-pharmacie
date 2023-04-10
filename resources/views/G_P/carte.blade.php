@@ -65,9 +65,9 @@
                             </div>
                             </td>
                             @if ($Cartes->Sold == 0)
-                            <td class="text-right font-weight-semibold align-middle p-4" id="test1_{{$key}}">${{$Cartes->Price}}</td>
+                            <td class="text-right font-weight-semibold align-middle p-4 PrixTotal" id="test1_{{$key}}">${{$Cartes->Price}}</td>
                             @else
-                            <td class="text-right font-weight-semibold align-middle p-4" id="test1_{{$key}}"><del>${{$Cartes->Price}}</del></td>
+                            <td class="text-right font-weight-semibold align-middle p-4 PrixTotal" id="test1_{{$key}}"><del>${{$Cartes->Price}}</del></td>
                             @endif
                             <td class="text-right font-weight-semibold align-middle p-4" id="test2_{{$key}}">${{$Cartes->Sold}}</td>
                             <td class="align-middle p-4"><input type="text" class="form-control text-center test" value="0" id="test_{{$key}}" onkeyup="test({{$key}})"></td>
@@ -178,7 +178,7 @@
     {
       let dd = 0
       let dd1 = 0
-      document.getElementById('Prix').textContent = ""
+      // document.getElementById('Prix').textContent = ""
       let price1 = document.getElementById('test_'+key).value;
       price = document.getElementById('test1_'+key).textContent.replace("$","");
       sold = document.getElementById('test2_'+key).textContent.replace("$","");
@@ -186,21 +186,23 @@
         document.getElementById('total_'+key).textContent = "$" +0;
         vvar = 0;
       }
+      if (price1 < 0) {
+        document.getElementById('total_'+key).textContent = "$" +0;
+      }
       else if (sold > 0)
       {
         dd += sold * price1;
         document.getElementById('total_'+key).textContent = "$" +sold * price1;
+        tttest(key)
       }
-      else if
+      else if (sold == 0)
       {
         dd += price * price1;
         document.getElementById('total_'+key).textContent = "$" +price * price1;
+        tttest(key)
       }
+      
       vvar += dd;
-      
-      
-      // console.log(vvar);
-      // document.getElementById('Prix').textContent = "$" +vvar;
     }
     function checkCheckbox() {
       const updateBtns = document.querySelectorAll('.updateBtn');
@@ -211,47 +213,51 @@
         }
       }
       if (count > 1) {
+        // document.getElementById('Prix'+key).textContent = document.getElementById('total_'+key).textContent;
         window.location.href = "/Checkout";
+
       } else if (count < 1) {
         alert('Please select input element.');
-      } else {
-        window.location.href = "/Checkout";
-      }
     }
+  }
   </script>
-  {{-- <script>
+  <script>
+    function tttest(oui)
+    {
     var dd=0;
     var data_array = [];
     document.getElementById('Prix').textContent = 0;
     const updateBtns = document.querySelectorAll('.updateBtn');
     updateBtns.forEach(btn => btn.addEventListener('change', (e) => {
         if(e.target.checked){
-            name(e.target.id);
+            // name(e.target.id);
+            console.log(oui);
         }else{
-          console.log(data_array);
-            dd -= parseInt(data_array);
-            data_array.shift();
-            document.getElementById('Prix').textContent = dd;
+          // console.log(data_array);
+          //   dd -= parseInt(data_array);
+          //   data_array.shift();
+          //   document.getElementById('Prix').textContent = dd;
         }
     }));
+  }
     
-    function name(id) {
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET", "Show_Prix/" + id, true);
-        xhr.send();
+    // function name(id) {
+    //     let xhr = new XMLHttpRequest();
+    //     xhr.open("GET", "Show_Prix/" + id, true);
+    //     xhr.send();
 
-        xhr.onreadystatechange = function () {
+    //     xhr.onreadystatechange = function () {
             
-            if (xhr.readyState === 4 && xhr.status === 200){
-                let data = JSON.parse(xhr.responseText);
-                console.log(data);
-                data_array.push(data)
-                dd += parseInt(data);
-                document.getElementById('Prix').textContent = dd;
-            }
-        };
-    };
-</script> --}}
+    //         if (xhr.readyState === 4 && xhr.status === 200){
+    //             let data = JSON.parse(xhr.responseText);
+    //             console.log(data);
+    //             data_array.push(data)
+    //             dd += parseInt(data);
+    //             document.getElementById('Prix').textContent = dd;
+    //         }
+    //     };
+    // };
+</script>
 
 
 @endsection
