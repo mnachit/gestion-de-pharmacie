@@ -56,23 +56,23 @@
                         <tr>
                             <td class="p-4">
                             <div class="media align-items-center">
-                                <input class="form-check-input w-5 updateBtn el" type="checkbox" id={{$Cartes->id}}>
+                                {{-- <input class="form-check-input w-5 el" value="1" disabled> --}}
                                 {{-- <span class="comet-checkbox-circle" id="{{$Cartes->id}}"></span> --}}
                                 <img src="{{ asset('img/blogs/'. $Cartes->image)}}" class="d-block ui-w-40 ui-bordered mr-4" alt="">
                                 <div class="media-body">
-                                <a href="shop-single/{{$Cartes->id}}" class="d-block text-dark">{{$Cartes->Name}}</a>
+                                <a href="shop-single/{{$Cartes->id}}" class="d-block text-dark updateBtn">{{$Cartes->Name}}</a>
                                 </div>
                             </div>
                             </td>
                             @if ($Cartes->Sold == 0)
-                            <td class="text-right font-weight-semibold align-middle p-4 PrixTotal" id="test1_{{$key}}">${{$Cartes->Price}}</td>
+                            <td class="text-right font-weight-semibold align-middle p-4 Prix__T" id="test1_{{$key}}">${{$Cartes->Price}}</td>
                             @else
-                            <td class="text-right font-weight-semibold align-middle p-4 PrixTotal" id="test1_{{$key}}"><del>${{$Cartes->Price}}</del></td>
+                            <td class="text-right font-weight-semibold align-middle p-4" id="test1_{{$key}}"><del>${{$Cartes->Price}}</del></td>
                             @endif
-                            <td class="text-right font-weight-semibold align-middle p-4" id="test2_{{$key}}">${{$Cartes->Sold}}</td>
-                            <td class="align-middle p-4"><input type="text" class="form-control text-center test" value="0" id="test_{{$key}}" onkeyup="test({{$key}})"></td>
+                            <td class="text-right font-weight-semibold align-middle p-4 Prix__T" id="test2_{{$key}}">${{$Cartes->Sold}}</td>
+                            <td class="align-middle p-4"><input type="number" min="1" class="form-control text-center test mohamednachit" value="0" id="test_{{$key}}" onchange="test({{$key}})"></td>
                             {{-- @if ($Cartes->Sold == 0) --}}
-                            <td type="number" class="text-right font-weight-semibold align-middle p-4" id="total_{{$key}}">$0</td>
+                            <td type="number" class="text-right font-weight-semibold align-middle p-4" id="total_{{$key}}">$0</td><i class="fa-solid fa-plus"></i>
                             {{-- @else --}}
                             {{-- <td type="number" class="text-right font-weight-semibold align-middle p-4" id="total_{{$key}}">${{$Cartes->Sold}}</td> --}}
                             {{-- @endif --}}
@@ -108,7 +108,7 @@
               @if (Auth::user()->Address == ' ')
               <a href="#modal-C" data-bs-toggle="modal" type="submit" class="btn btn-lg btn-primary mt-2">Checkout</a>
               @else
-              <a onclick="checkCheckbox()" type="submit" class="btn btn-lg btn-primary mt-2">Checkout</a>
+              <a onclick="checkCheckbox()"  type="submit" class="btn btn-lg btn-primary mt-2">Checkout</a>
               @endif
             </div>
         
@@ -159,87 +159,114 @@
     <?php session()->forget('display_modal'); ?>
 @endif
 
-<script>
-  const input = document.getElementById('test');
-  let value = input.value;
+  <script>
+    let TotalP = 0;
 
-  input.addEventListener('input', () => {
-      value = input.value;
-  });
+function test(key)
+{
+  let price = parseInt(document.getElementById('test1_'+key).textContent.replace("$",""));
+  let sold = parseInt(document.getElementById('test2_'+key).textContent.replace("$",""));
+  let quntite = parseInt(document.getElementById('test_'+key).value);
 
+  let oldTotal = parseInt(document.getElementById('total_'+key).textContent.replace("$","")); // Get the old total value
+  let total = price * quntite;
   
-</script>
+  if(sold > 0)
+  {
+    total = sold * quntite;
+  }
 
-  <script>
-    var vvar = 0;
-    var price = 0;
-    let sold = 0;
-    function test(key)
-    {
-      let dd = 0
-      let dd1 = 0
-      // document.getElementById('Prix').textContent = ""
-      let price1 = document.getElementById('test_'+key).value;
-      price = document.getElementById('test1_'+key).textContent.replace("$","");
-      sold = document.getElementById('test2_'+key).textContent.replace("$","");
-      if (price1 == 0) {
-        document.getElementById('total_'+key).textContent = "$" +0;
-        vvar = 0;
-      }
-      if (price1 < 0) {
-        document.getElementById('total_'+key).textContent = "$" +0;
-      }
-      else if (sold > 0)
-      {
-        dd += sold * price1;
-        document.getElementById('total_'+key).textContent = "$" +sold * price1;
-        tttest(key)
-      }
-      else if (sold == 0)
-      {
-        dd += price * price1;
-        document.getElementById('total_'+key).textContent = "$" +price * price1;
-        tttest(key)
-      }
+  TotalP = TotalP - oldTotal + total;
+
+  document.getElementById('total_'+key).textContent = "$" +total;
+  document.getElementById('Prix').textContent = "$" + TotalP;
+}
+  // function test(inputs) {
+  //   let total = 0;
+  //   const updateBtns = document.querySelectorAll('.updateBtn');
+  //   for (let index = 0; index < updateBtns.length; index++) {
+  //     const priceElement = document.getElementById('test2_'+index) || document.getElementById('test1_'+index);
+  //     const price = parseInt(priceElement.textContent.replace("$",''));
+  //     const quantity = parseInt(document.getElementById('test_'+index).value);
+  //     const subTotal = price * quantity;
+  //     total += subTotal;
+  //     document.getElementById('total_'+index).textContent = '$' + subTotal;
+  //   }
+  // }
+
+  // var countChecked = function(test,total) {
+  //   var n = $( "input:checked" ).length;
+  //   $( "div" ).text( n + (n === 1 ? test : total));
+  // };
+  // var toootal = 0;
+  // function check(keyy) {
+    // let checkedTotal = 0;
+    // var test = parseInt(document.getElementById('total_'+keyy).textContent.replace("$",""));
+    // const updateBtns = document.querySelectorAll('.updateBtn');
+    // for (let i = 0; i < updateBtns.length; i++) {
       
-      vvar += dd;
-    }
-    function checkCheckbox() {
-      const updateBtns = document.querySelectorAll('.updateBtn');
-      let count = 0;
-      for (let i = 0; i < updateBtns.length; i++) {
-        if (updateBtns[i].checked) {
-          count++;
-        }
-      }
-      if (count > 1) {
-        // document.getElementById('Prix'+key).textContent = document.getElementById('total_'+key).textContent;
-        window.location.href = "/Checkout";
+    //   if (updateBtns[i].checked) {
+    //     toootal += test;
+    //   }
+    //   else (!updateBtns[i].checked)
+    //   {
+    //     // toootal -= test;
+    //   }
 
-      } else if (count < 1) {
-        alert('Please select input element.');
+    //   console.log(toootal); 
+    
+    // document.getElementById('Prix').textContent = "$" + toootal;
+  // }
+
+  function checkCheckbox() {
+    const updateBtns = document.querySelectorAll('.updateBtn');
+    let count = 0;
+    let chheck = parseInt(document.getElementById('Prix').textContent.replace("$",""));
+    console.log(chheck);
+    if (chheck >= 1) {
+      sessionStorage.setItem('TotalP', chheck);
+      window.location.href = "/Checkout";
+    }
+    else if(chheck <= 0){
+      alert('Please select input element.');
     }
   }
-  </script>
-  <script>
-    function tttest(oui)
-    {
-    var dd=0;
-    var data_array = [];
-    document.getElementById('Prix').textContent = 0;
-    const updateBtns = document.querySelectorAll('.updateBtn');
-    updateBtns.forEach(btn => btn.addEventListener('change', (e) => {
-        if(e.target.checked){
-            // name(e.target.id);
-            console.log(oui);
-        }else{
-          // console.log(data_array);
-          //   dd -= parseInt(data_array);
-          //   data_array.shift();
-          //   document.getElementById('Prix').textContent = dd;
-        }
-    }));
-  }
+//     function keyy(key) {
+//   var dd = 0;
+//   var ee;
+//   document.getElementById('Prix').textContent = "$" + 0;
+//   var quantity = parseInt(document.getElementById('test_' + key).value);
+//   const updateBtns = document.querySelectorAll('.updateBtn');
+//   updateBtns.forEach(btn => {
+//     console.log(btn);
+//     btn.addEventListener('change', (e) => {
+//       if (e.target.checked) {
+//         var prixElements = document.querySelectorAll('.Prix__T');
+//         var prixArray = Array.from(prixElements).map(el => {
+//           var checkbox = el.closest('tr').querySelector('.updateBtn');
+//           if (checkbox.checked) {
+//             const price = parseInt(el.textContent.replace('$', ''));
+//             const quantity = parseInt(document.getElementById('test_'+key).value);
+//             dd = price * quantity;
+//             // dd.push(ee);
+//             return dd;
+//           } else {
+//             dd = 0;
+//             quantity = 0;
+//             return 0;
+//           }
+//         });
+//         const sum = prixArray.reduce((acc, curr) => acc + curr, 0);
+//         document.getElementById('Prix').textContent = sum.toFixed(2);
+//       }
+//       else{
+//         dd = 0;
+//         quantity = 0;
+//         document.getElementById('Prix').textContent = 0;
+//       }
+//     });
+//   });
+// }
     
     // function name(id) {
     //     let xhr = new XMLHttpRequest();

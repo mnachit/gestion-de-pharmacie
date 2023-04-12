@@ -90,3 +90,5 @@ Route::get('/shop-single/{id}', function () {
         Route::view('/order-tracking', 'G_P.order')->name('');
     });
     
+
+// Route::view('/youssef11111','G_P.ll')->name('nachit');
