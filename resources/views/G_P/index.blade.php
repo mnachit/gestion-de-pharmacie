@@ -40,7 +40,7 @@
             @foreach ($Data_Shop1 as $datta)
             
             <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="{{ route('shop-single',$datta->id)}}"> <img src="{{ asset('img/blogs/'. $datta->image)}}" alt="Image"></a>
+            <a href="{{ route('shop-single',$datta->id)}}"> <img src="{{$datta->image}}" alt="Image" style="border-radius: 50%; width: 270px; height: 370px;"></a>
             
             <h3 class="text-dark"><a href="{{ route('shop-single',$datta->id)}}">{{$datta->Name}}</a></h3>
             <p class="price"><del>95.00</del> &mdash; $55.00</p>

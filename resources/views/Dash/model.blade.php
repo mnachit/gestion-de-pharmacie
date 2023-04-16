@@ -59,7 +59,7 @@
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Sold (option)</label>
-                    <input type="text" name="Sold_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Sold_P_id"/>
+                    <input type="number" name="Sold_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Sold_P_id"/>
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Quantity</label>
@@ -86,7 +86,7 @@
                     <input type="hidden" id="id_Product1" name="id_product">
                 </div>
                 <div class="modal-body">
-                    <img class="card-img-top rounded-circle w-50 h-50" src="" alt="..." id="img" style="margin-left:2.7cm"/>
+                    <img class="card-img-top rounded-circle w-50 h-50" src="" alt="..." id="img" style="margin-left:2.7cm" />
                     <input type="file" name="image_pro1">
                 </div>
                 <div class="modal-body">

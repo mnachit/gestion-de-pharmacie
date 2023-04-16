@@ -1,8 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\orders;
 use Illuminate\Http\Request;
 use App\Models\Panier;
+// use App\Models\orders;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -62,7 +64,7 @@ class PanierController extends Controller
         $panierItems = DB::table('panier')
         ->join('users', 'users.id', '=', 'panier.user_id')
         ->join('produit', 'produit.id', '=', 'panier.product_id')
-        ->select('users.username', 'produit.Name', 'produit.Price', 'produit.image', 'produit.Price','produit.id','produit.Sold','panier.status')
+        ->select('users.username', 'produit.Name', 'produit.Price', 'produit.image', 'produit.Price','produit.id','produit.Sold','produit.Quantity','panier.status')
         ->where('status', '=', 'false')
         ->where('user_id', '=', Auth::user()->id)
         ->get();
@@ -128,5 +130,95 @@ class PanierController extends Controller
 
         // return view or redirect to the index page
     }
+
+    public function nachit(Request $request)
+    {
+        for($i = 0; $i <= count($request->all())/2; $i++)
+        {
+            $ss = $request->input('product_id_'.$i);
+            $ss1 = $request->input('product_qty_'.$i);
+            
+            if(isset($ss1) && !empty($ss1)) {
+                $order = new orders;
+                $order->Quantity = $ss1;
+                $order->product_id = $ss;
+                $order->user_id = Auth::user()->id;
+                $order->Total = 20;
+
+                $order->save();
+
+            }
+            $Product = Panier::where('product_id', $ss)
+            ->where('user_id',Auth::user()->id)
+            ->first();
+            if($Product) {
+                $Product->delete();
+            }
+        }
+        
+        return redirect()->back();
+    }
+
+    public function nachit1(Request $request)
+    {
+        // dd(count($request->all())/2);
+        $orders = session()->get('orders', []);
+        for($i = 0; $i <= count($request->all())/2; $i++)
+        {
+            $ss = $request->input('product_id_'.$i);
+            $ss1 = $request->input('product_qty_'.$i);
+            
+            if (isset($ss1) && !empty($ss1)) {
+                $order = [
+                    'product_id' => $ss,
+                    'Quantity' => $ss1,
+                    'user_id' => Auth::user()->id,
+                    'Total' => 20,
+                ];
+                $orders[] = $order;
+            }
+        }
+        session()->put('orders', $orders);
+        return view('G_P.Checkout');
+    }
+
+    public function Order_P()
+    {
+        $total = 0; // Define $total here
+        // $orders = orders::select('*')->where('user_id',Auth::user()->id)
+        // ->join('users', 'users.id', '=', 'orders.user_id')
+        // ->join('produit', 'produit.id', '=', 'orders.product_id')
+        // ->select('orders.created_at','orders.Status','orders.Quantity','users.First','users.Address','users.Num_tele','users.Last', 'produit.Name', 'produit.id','produit.Sold', 'produit.image', 'produit.Price','produit.Sold')
+        // ->get();
+            // $orders = DB::table('orders')
+            // ->join('users', 'users.id', '=', 'orders.user_id')
+            // ->join('produit', 'produit.id', '=', 'orders.product_id')
+            // ->select('orders.created_at', 'orders.Status', 'orders.Quantity', 'users.First', 'users.Address', 'users.Num_tele', 'users.Last', 'produit.Name', 'produit.id', 'produit.Sold', 'produit.image', 'produit.Price', 'produit.Sold')
+            // ->whereRaw('(product_id, user_id) IN (
+            //                 SELECT product_id, user_id
+            //                 FROM orders
+            //                 GROUP BY product_id, user_id
+            //                 HAVING COUNT(*) > 1
+            //             )')
+            // ->get();
+            $results = DB::table('orders')
+            ->select('created_at', 'user_id', DB::raw('sum(Quantity)'), DB::raw('MAX(Status) AS Status'), DB::raw('MAX(id) AS id'))
+            ->groupBy('created_at', 'user_id')
+            ->get();
+
+        // foreach ($orders as $order) {
+        //     $total += $order->Price * $order->Quantity;
+        // }
+        // dd($total);
+            // dd($results);
+        return view('G_P.order',['Receiving'=>$results]);
+    }
+
+    // public function PDF($id)
+    // {
+    //     # code...
+    // }
+
+
 
 }

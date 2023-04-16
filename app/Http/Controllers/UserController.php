@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreuserRequest;
 use App\Http\Requests\UpdateuserRequest;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -18,7 +20,6 @@ class UserController extends Controller
 
     public function index()
     {
-        
     }
 
     /**
@@ -57,17 +58,47 @@ class UserController extends Controller
 
     public function Update_P($id, Request $request)
     {
+        // dd($request->image_profile);
         $user = User::find($id);
 
-        $user->First = $request->first;
-        $user->Last = $request->last;
-        $user->Num_tele = $request->num;
-        $user->Address = $request->address;
-        $user->Postcode = $request->post;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->Country = $request->country;
-        $user->Region = $request->state;
+        if ($request->file('image_profile')) {
+            $Photo = Cloudinary::upload($request->file('image_profile')->getRealPath(), [
+                "folder" => "product/",
+                "public_id" => "poster_" . time(),
+                "overwrite" => true
+            ]);
+        }
+        $url = Auth::user()->image;
+        $basename = basename($url);
+        $pathinfo = pathinfo($basename);
+        $public_id = $pathinfo['filename'];
+        // dd($public_id);
+        Cloudinary::destroy($public_id);
+        // dd($Photo);
+        if (!empty($Photo)) {
+            $user->First = $request->first;
+            $user->image = $Photo->getSecurePath();
+            $user->Last = $request->last;
+            $user->Num_tele = $request->num;
+            $user->Address = $request->address;
+            $user->Postcode = $request->post;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->Country = $request->country;
+            $user->Region = $request->state;
+        }
+        else{
+            $user->First = $request->first;
+            // $user->image = $Photo->getSecurePath();
+            $user->Last = $request->last;
+            $user->Num_tele = $request->num;
+            $user->Address = $request->address;
+            $user->Postcode = $request->post;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->Country = $request->country;
+            $user->Region = $request->state;
+        }
 
         $user->update();
 
@@ -95,7 +126,6 @@ class UserController extends Controller
      */
     public function update(UpdateuserRequest $request, user $user)
     {
-        
     }
 
     /**

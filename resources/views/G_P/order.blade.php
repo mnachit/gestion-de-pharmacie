@@ -11,6 +11,19 @@
     </div>
 </div>
 
+{{-- @php
+  $var = DB::table('orders')
+    ->whereIn(DB::raw("(product_id, user_id)"), function($query){
+        $query->select(DB::raw("product_id, user_id"))
+              ->from('orders')
+              ->groupBy('product_id', 'user_id')
+              ->havingRaw('COUNT(*) > 1');
+    })
+    ->get();
+@endphp
+
+{{dd($var)}} --}}
+
 <div class="container px-3 my-5 clearfix">
     <!-- Shopping cart table -->
     <div class="card">
@@ -23,26 +36,32 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Id Product</th>
                         <th scope="col">Date</th>
-                        <th scope="col">Shipping</th>
                         <th scope="col">Address</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Qantite</th>
+                        {{-- <th scope="col">Status</th> --}}
+                        <th scope="col">download</th>
+                        <th scope="col">claim</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td class="fw-bold text-success">Shipped</td>
+                        @foreach ($Receiving as $key => $Rec)
+                        <tr>
+                            <th scope="row">{{$key + 1}}</th>
+                            <th scope="row">#{{$Rec->id}}</th>
+                            <td>{{$Rec->created_at}}</td>
+                            <td>{{Auth::user()->Address}}</td>
+                            <td>{{ $Rec->{'sum(Quantity)'} }}</td>
+                            {{-- @if($Rec->Status == "false")
+                            <td class="text-secondary">Processing</td>
+                            @else
+                            <td class="text-success">Shipped</td>
+                            @endif --}}
+                            <td><a href="/Pdf/{{$Rec->created_at}}" type="submit">pdf</a></td>
+                            <td><a href="/Contact" type="submit">Contact</a></td>
                       </tr>
+                      @endforeach
                     </tbody>
                   </table>
             </div>

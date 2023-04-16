@@ -33,7 +33,8 @@
 </style>
 <div class="container px-3 my-5 clearfix">
     <!-- Shopping cart table -->
-    <div class="card">
+    <form class="card" method="GET" action="{{route('nachit')}}">
+      @csrf
         <div class="card-header">
             <h2>Shopping Cart</h2>
         </div>
@@ -46,7 +47,7 @@
                     <th class="text-center py-3 px-4" style="min-width: 400px;">Product Name &amp; Details</th>
                     <th class="text-right py-3 px-4" style="width: 100px;">Price</th>
                     <th class="text-right py-3 px-4" style="width: 100px;">Sold</th>
-                    <th class="text-center py-3 px-4" style="width: 120px;">Quantity</th>
+                    <th class="text-center py-3 px-4" style="width: 120px;">Quantityu<t15ty</th>
                     <th class="text-right py-3 px-4" style="width: 100px;">Total</th>
                     <th class="text-center align-middle py-3 px-0" style="width: 40px;"><a href="#" class="shop-tooltip float-none text-light" title="" data-original-title="Clear cart"><i class="ino ion-md-trash"></i></a></th>
                   </tr>
@@ -56,9 +57,9 @@
                         <tr>
                             <td class="p-4">
                             <div class="media align-items-center">
-                                {{-- <input class="form-check-input w-5 el" value="1" disabled> --}}
+                                <input type="hidden" class="form-check-input w-5 el" name="product_id_{{$key}}" value="{{$Cartes->id}}">
                                 {{-- <span class="comet-checkbox-circle" id="{{$Cartes->id}}"></span> --}}
-                                <img src="{{ asset('img/blogs/'. $Cartes->image)}}" class="d-block ui-w-40 ui-bordered mr-4" alt="">
+                                <img src="{{$Cartes->image}}" class="d-block ui-w-40 ui-bordered mr-4" alt="">
                                 <div class="media-body">
                                 <a href="shop-single/{{$Cartes->id}}" class="d-block text-dark updateBtn">{{$Cartes->Name}}</a>
                                 </div>
@@ -66,11 +67,16 @@
                             </td>
                             @if ($Cartes->Sold == 0)
                             <td class="text-right font-weight-semibold align-middle p-4 Prix__T" id="test1_{{$key}}">${{$Cartes->Price}}</td>
+                        
                             @else
                             <td class="text-right font-weight-semibold align-middle p-4" id="test1_{{$key}}"><del>${{$Cartes->Price}}</del></td>
                             @endif
                             <td class="text-right font-weight-semibold align-middle p-4 Prix__T" id="test2_{{$key}}">${{$Cartes->Sold}}</td>
-                            <td class="align-middle p-4"><input type="number" min="1" class="form-control text-center test mohamednachit" value="0" id="test_{{$key}}" onchange="test({{$key}})"></td>
+                            @if (intval($Cartes->Quantity) < 15)
+                            <td class="align-middle p-4"><input type="number" min="0" max="1" class="form-control text-center test mohamednachit" name="product_qty_{{$key}}" value="0" id="test_{{$key}}" onchange="test({{$key}})"></td>
+                            @else
+                            <td class="align-middle p-4"><input type="number" min="1" class="form-control text-center test mohamednachit" name="product_qty_{{$key}}" value="1" id="test_{{$key}}" onchange="test({{$key}})"></td>
+                            @endif
                             {{-- @if ($Cartes->Sold == 0) --}}
                             <td type="number" class="text-right font-weight-semibold align-middle p-4" id="total_{{$key}}">$0</td><i class="fa-solid fa-plus"></i>
                             {{-- @else --}}
@@ -78,10 +84,15 @@
                             {{-- @endif --}}
                             <td class="text-center align-middle px-0"><a href="/DeletePr/{{$Cartes->id}}" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
                         </tr>
+                        @php
+                            $data = ['id_product' => $Cartes->id, 'quantity' => "total_{{$key}}"];
+                        @endphp
+                        {{-- <input type="hidden" name="product_id[]" value="{{ $data['id_product'] }}">
+                        <input type="hidden" name="product_qty[]" value="{{ $data['quantity'] }}"> --}}
                     @endforeach
-        
                 </tbody>
               </table>
+              
             </div>
         
             <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
@@ -108,31 +119,31 @@
               @if (Auth::user()->Address == ' ')
               <a href="#modal-C" data-bs-toggle="modal" type="submit" class="btn btn-lg btn-primary mt-2">Checkout</a>
               @else
-              <a onclick="checkCheckbox()"  type="submit" class="btn btn-lg btn-primary mt-2">Checkout</a>
+              <input type="submit" class="btn btn-lg btn-primary mt-2">
               @endif
             </div>
         
           </div>
       </div>
-  </div>
-
-  <div class="modal fade mt-5" id="modal-C">
-    <div class="modal-dialog" style="margin-top: 7cm">
-        <div class="modal-content" >
-                <div class="modal-header">
-                    <input type="hidden" id="task-idd4" name="idd4">
-                    <h5 class="modal-title text-secondary">Please add your Address, to follow the next step</h5>
-                    <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
-                </div>
-                <input type="hidden" id="task-id1" name="idd1">
-                <div style="margin-left:4cm; margin-top:0.5cm; margin-bottom:0.5cm">
-                    <a href="#" class="btn btn-white" data-bs-dismiss="modal">Cancel</a>
-                    <a type="submit" href="/Profile" class="btn btn-primary task-action-btn" id="task-save-btn">Go</a>
-                </div>
-        </div>
-    </div>
+  </form>
 </div>
 
+<div class="modal fade mt-5" id="modal-C">
+  <div class="modal-dialog" style="margin-top: 7cm">
+      <div class="modal-content" >
+              <div class="modal-header">
+                  <input type="hidden" id="task-idd4" name="idd4">
+                  <h5 class="modal-title text-secondary">Please add your Address, to follow the next step</h5>
+                  <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
+              </div>
+              <input type="hidden" id="task-id1" name="idd1">
+              <div style="margin-left:4cm; margin-top:0.5cm; margin-bottom:0.5cm">
+                  <a href="#" class="btn btn-white" data-bs-dismiss="modal">Cancel</a>
+                  <a type="submit" href="/Profile" class="btn btn-primary task-action-btn" id="task-save-btn">Go</a>
+              </div>
+      </div>
+  </div>
+</div>
 @if(session('display_modal'))
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">

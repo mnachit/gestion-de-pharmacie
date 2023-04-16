@@ -1,87 +1,163 @@
 @extends('home')
 
 @section('content1')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-<style>
 
-.rounded{border-radius: 1rem}.nav-pills .nav-link{color: #555}.nav-pills .nav-link.active{color: white}input[type="radio"]{margin-right: 5px}.bold{font-weight:bold}
-</style>
-<div class="container py-5">
-    <!-- For demo purpose -->
-    <div class="row mb-4">
-        <div class="col-lg-8 mx-auto text-center">
-            <h1 class="display-6"> Payment</h1>
-        </div>
-    </div> <!-- End -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div class="container" style="margin-top: 3cm;">
     <div class="row">
-        <div class="col-lg-6 mx-auto">
-            <div class="card ">
-                <div class="card-header">
-                    <div class="bg-white shadow-sm pt-4 pl-2 pr-2 pb-2">
-                        <!-- Credit card form tabs -->
-                        <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
-                            <li class="nav-item"> <a data-toggle="pill" href="#credit-card" class="nav-link active "> <i class="fas fa-credit-card mr-2"></i> Credit Card </a> </li>
-                            {{-- <li class="nav-item"> <a data-toggle="pill" href="#paypal" class="nav-link "> <i class="fab fa-paypal mr-2"></i> Paypal </a> </li> --}}
-                            <li class="nav-item"> <a data-toggle="pill" href="#paypal1" class="nav-link "> <i class="fab fa-paypal mr-2"></i> Paiement when receiving </a> </li>
-                        </ul>
-                    </div> <!-- End -->
-                    <!-- Credit card form content -->
-                    <div class="tab-content">
-                        <!-- credit card info-->
-                        <div id="credit-card" class="tab-pane fade show active pt-3">
-                            <form role="form" novalidate>
-                                <div class="form-group"> <label for="username">
-                                        <h6>Card Owner</h6>
-                                    </label> <input type="text" name="username" placeholder="Card Owner Name" required class="form-control" > </div>
-                                <div class="form-group"> <label for="cardNumber">
-                                        <h6>Card number</h6>
-                                    </label>
-                                    <div class="input-group"> <input type="text" name="cardNumber" placeholder="Valid card number" class="form-control " required>
-                                        <div class="input-group-append"> <span class="input-group-text text-muted"> <i class="fab fa-cc-visa mx-1"></i> <i class="fab fa-cc-mastercard mx-1"></i> <i class="fab fa-cc-amex mx-1"></i> </span> </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <div class="form-group"> <label><span class="hidden-xs">
-                                                    <h6>Expiration Date</h6>
-                                                </span></label>
-                                            <div class="input-group"> <input type="number" placeholder="MM" name="" class="form-control" required> <input type="number" placeholder="YY" name="" class="form-control" required> </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group mb-4"> <label data-toggle="tooltip" title="Three digit CV code on the back of your card">
-                                                <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
-                                            </label> <input type="text" required class="form-control"> </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer"> <a type="submit"  href="/thankyou" class="subscribe btn btn-primary btn-block shadow-sm"> Confirm Payment <h5 id="PrixTo"></h5></a>
-                            </form>
-                        </div>
-                    </div> <!-- End -->
-                    <!-- Paypal info -->
-                    {{-- <div id="paypal" class="tab-pane fade pt-3">
-                        <h6 class="pb-2">Select your paypal account type</h6>
-                        <div class="form-group "> <label class="radio-inline"> <input type="radio" name="optradio" checked> Domestic </label> <label class="radio-inline"> <input type="radio" name="optradio" class="ml-5">International </label></div>
-                        <p> <a type="submit" href="/thankyou" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Log into my Paypal</a> </p>
-                        <p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
-                    </div> <!-- End --> --}}
-                    <div id="paypal1" class="tab-pane fade pt-3">
-                        <div class="card-footer"> <a type="submit" href="/thankyou" class="subscribe btn btn-primary btn-block shadow-sm"> Confirm Payment </a>
-                    </div>
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default credit-card-box">
+                <div class="panel-heading display-table" >
+                        <h3 class="panel-title" >Payment Details</h3>
                 </div>
-            </div>
+                <div class="panel-body">
+    
+                    @if (Session::has('success'))
+                        <div class="alert alert-success text-center">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                            <p>{{ Session::get('success') }}</p>
+                        </div>
+                    @endif
+    
+                    <form 
+                            role="form" 
+                            action="{{ route('stripe.post') }}" 
+                            method="post" 
+                            class="require-validation"
+                            data-cc-on-file="false"
+                            data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
+                            id="payment-form">
+                        @csrf
+    
+                        <div class='form-row row'>
+                            <div class='col-xs-12 form-group required'>
+                                <label class='control-label'>Name on Card</label> <input
+                                    class='form-control' size='4' type='text'>
+                                    <input type="hidden" id="hidden" name="hidden">
+                            </div>
+                        </div>
+    
+                        <div class='form-row row'>
+                            <div class='col-xs-12 form-group card required'>
+                                <label class='control-label'>Card Number</label> <input
+                                    autocomplete='off' class='form-control card-number' size='20'
+                                    type='text'>
+                            </div>
+                        </div>
+    
+                        <div class='form-row row'>
+                            <div class='col-xs-12 col-md-4 form-group cvc required'>
+                                <label class='control-label'>CVC</label> <input autocomplete='off'
+                                    class='form-control card-cvc' placeholder='ex. 311' size='4'
+                                    type='text'>
+                            </div>
+                            <div class='col-xs-12 col-md-4 form-group expiration required'>
+                                <label class='control-label'>Expiration Month</label> <input
+                                    class='form-control card-expiry-month' placeholder='MM' size='2'
+                                    type='text'>
+                            </div>
+                            <div class='col-xs-12 col-md-4 form-group expiration required'>
+                                <label class='control-label'>Expiration Year</label> <input
+                                    class='form-control card-expiry-year' placeholder='YYYY' size='4'
+                                    type='text'>
+                            </div>
+                        </div>
+    
+                        <div class='form-row row'>
+                            <div class='col-md-12 error form-group hide'>
+                                <div class='alert-danger alert'>Please correct the errors and try
+                                    again.</div>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="btn btn-primary btn-lg btn-block" type="submit" id="Prix">Pay Now </button>
+                            </div>
+                        </div>
+                            
+                    </form>
+                </div>
+            </div>        
         </div>
     </div>
+        
 </div>
-    <script>
-        let storedTotalP = sessionStorage.getItem('TotalP');
-        if (storedTotalP !== null) {
-        TotalP = parseInt(storedTotalP);
-        // console.log(TotalP);
-        document.getElementById('PrixTo').textContent = "$" + TotalP;
-        }
-    </script>
-    
 
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script>
+    let storedTotalP = sessionStorage.getItem('TotalP');
+    TotalP = parseInt(storedTotalP);
+    document.getElementById('Prix').textContent = "Pay Now (" + TotalP + "$)";
+    document.getElementById('hidden').value = TotalP;
+</script>
+<script type="text/javascript">
+  
+$(function() {
+  
+    /*------------------------------------------
+    --------------------------------------------
+    Stripe Payment Code
+    --------------------------------------------
+    --------------------------------------------*/
+    
+    var $form = $(".require-validation");
+     
+    $('form.require-validation').bind('submit', function(e) {
+        var $form = $(".require-validation"),
+        inputSelector = ['input[type=email]', 'input[type=password]',
+                         'input[type=text]', 'input[type=file]',
+                         'textarea'].join(', '),
+        $inputs = $form.find('.required').find(inputSelector),
+        $errorMessage = $form.find('div.error'),
+        valid = true;
+        $errorMessage.addClass('hide');
+    
+        $('.has-error').removeClass('has-error');
+        $inputs.each(function(i, el) {
+          var $input = $(el);
+          if ($input.val() === '') {
+            $input.parent().addClass('has-error');
+            $errorMessage.removeClass('hide');
+            e.preventDefault();
+          }
+        });
+     
+        if (!$form.data('cc-on-file')) {
+          e.preventDefault();
+          Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+          Stripe.createToken({
+            number: $('.card-number').val(),
+            cvc: $('.card-cvc').val(),
+            exp_month: $('.card-expiry-month').val(),
+            exp_year: $('.card-expiry-year').val()
+          }, stripeResponseHandler);
+        }
+    
+    });
+      
+    /*------------------------------------------
+    --------------------------------------------
+    Stripe Response Handler
+    --------------------------------------------
+    --------------------------------------------*/
+    function stripeResponseHandler(status, response) {
+        if (response.error) {
+            $('.error')
+                .removeClass('hide')
+                .find('.alert')
+                .text(response.error.message);
+        } else {
+            /* token contains id, last4, and card type */
+            var token = response['id'];
+                 
+            $form.find('input[type=text]').empty();
+            $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+            $form.get(0).submit();
+        }
+    }
+     
+});
+</script>
 @endsection

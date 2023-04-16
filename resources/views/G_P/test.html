@@ -1,120 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script> -->
-</head>
-<style>
-    .padding{
-
-padding: 5rem !important;
-}
-
-
-
-.form-control:focus {
-box-shadow: 10px 0px 0px 0px #ffffff !important;
-border-color: #4ca746;
-}
-</style>
-
-<body>
-    <div class="padding">
-        <div class="row">
-            <div class="container-fluid d-flex justify-content-center">
-                <div class="col-sm-8 col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <span>CREDIT/DEBIT CARD PAYMENT</span>
-                                
-                            </div>
-
-                            <div class="col-md-6 text-right" style="margin-top: -5px;">
-
-                                  <img src="https://img.icons8.com/color/36/000000/visa.png">
-                                  <img src="https://img.icons8.com/color/36/000000/mastercard.png">
-                                  <img src="https://img.icons8.com/color/36/000000/amex.png">
-                                           
-                            </div>      
-
-                        </div>    
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @media all {
+  * {
+    box-sizing: border-box;
+  }
   
-                        </div>
-                        <div class="card-body" style="height: 350px">
-                            <div class="form-group">
-                            <label for="cc-number" class="control-label">CARD NUMBER</label>
-                            <input id="cc-number" type="tel" class="input-lg form-control cc-number" autocomplete="cc-number" placeholder="&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;" required>
-                          </div>
+  html {
+    height: 100%;
+  }
+  
+  body {
+    min-height: 100%;
+    margin: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: stretch;
+    font: 12pt/1.5 'Raleway','Cambria', sans-serif;
+    font-weight: 300;
+    background: #fff;
+    color: #666;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  header {
+    padding: 16px;
+    position: relative;
+    color: #888;
+  }
+  
+  header h1, header h2 {
+    font-weight: 200;
+    margin: 0;
+  }
+  
+  header h1 {
+    font-size: 27pt;
+    letter-spacing: 4px;
+  }
+  
+  body > * {
+    width: 100%;
+    max-width: 7in;
+    margin: 3px auto;
+    background: #F0f0f0;
+    text-align: center;
+  }
+  
+  footer {
+    padding: 16px;
+  }
+  
+  footer p {
+    font-size: 9pt;
+    margin: 0;
+    font-family: 'Nunito';
+    color: #777;
+  }
+  
+  section, table {
+    padding: 8px 0;
+    position: relative;
+  }
+  
+  dl {
+    margin: 0;
+    letter-spacing: -4px;
+  }
+  
+  dl dt, dl dd {
+    letter-spacing: normal;
+    display: inline-block;
+    margin: 0;
+    padding: 0px 6px;
+    vertical-align: top;
+  }
+  
+  dl.bloc > dt,
+  dl:not(.bloc) dt:not(:last-of-type),
+  dl:not(.bloc) dd:not(:last-of-type) {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  dl:not(.bloc) dt {
+    border-right: 1px solid #ddd;
+  }
+  
+  dt {
+    width: 49%;
+    text-align: right;
+    letter-spacing: 1px !important;
+    overflow: hidden;
+  }
+  
+  dd {
+    width: 49%;
+    text-align: left;
+  }
+  
+  dd, tr > td {
+    font-family: 'Nunito';
+  }
+  
+  section.flex {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 8px 16px;
+    justify-content: space-around;
+  }
+  
+  dl.bloc {
+    padding: 0;
+    flex: 1;
+    vertical-align: top;
+    min-width: 240px;
+    margin: 0 8px 8px;
+  }
+  
+  dl.bloc > dt {
+    text-align: left;
+    width: 100%;
+    margin-top: 12px;
+  }
+  
+  dl.bloc > dd {
+    text-align: left;
+    width: 100%;
+    padding: 8px 0 5px 16px;
+    line-height: 1.25;
+  }
+  
+  dl.bloc > dd > dl dt {
+    width: 33%;
+  }
+  
+  dl.bloc > dd > dl dd {
+    width: 60%;
+  }
+  
+  dl.bloc dl {
+    margin-top: 12px;
+  }
+  
+  dl.bloc dd {
+    font-size: 11pt;
+  }
+  dd {
+  font-size: 11pt;
+}
 
-                          <div class="row">
+table {
+  width: 100%;
+  padding: 0;
+  border-spacing: 0px;
+}
 
-                            <div class="col-md-6">
-                                 <div class="form-group">
-                                    <label for="cc-exp" class="control-label">CARD EXPIRY</label>
-                                    <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="&bull;&bull; / &bull;&bull;" required>
-                                  </div>
+tr {
+  margin: 0;
+  padding: 0;
+  background: #fdfdfd;
+  border-right: 1px solid #ddd;
+  width: 100%;
+}
 
-                                
-                            </div>
+td,
+th {
+  border: 1px solid #e3e3e3;
+  border-top: 1px solid white;
+  border-left-color: #fff;
+  font-size: 11pt;
+  background: #fdfdfd;
+}
 
-                             <div class="col-md-6">
-                               <div class="form-group">
-                                <label for="cc-cvc" class="control-label">CARD CVC</label>
-                                <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="&bull;&bull;&bull;&bull;" required>
-                              </div>
-                            </div>
-                              
-                          </div>
+thead th {
+  background: #E9E9E9;
+  background: linear-gradient(to bottom, #f9f9f9, #e9e9e9) !important;
+  font-weight: 300;
+  letter-spacing: 1px;
+  padding: 15px 0 5px;
+  /*&:not(:last-child)*/
+  border: none !important;
+}
 
-      
-                          <div class="form-group">
-                            <label for="numeric" class="control-label">CARD HOLDER NAME</label>
-                            <input  type="text" class="input-lg form-control">
-                          </div>
+tbody tr:last-child td {
+  border-bottom: 1px solid #ddd;
+}
 
-                           <div class="form-group">
-                            
-                            <input href="/gsfdg" value="MAKE PAYMENT" type="submit" class="btn btn-success btn-lg form-control" style="font-size: .8rem;">
-                          </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-</div>
+td {
+  min-width: 75px;
+  padding: 3px 6px;
+  line-height: 1.25;
+}
+
+tfoot tr td {
+  height: 40px;
+  padding: 6px 0 0;
+  color: #000;
+  text-shadow: 0 0 1px rgba(0, 0, 0, .25);
+  font-family: 'Cambria', 'Raleway', sans-serif;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+tfoot tr td:first-child {
+  font-style: italic;
+  color: #997B7B;
+}
+
+a {
+  color: #992C2C;
+}
+
+a:hover {
+  color: #BB0000;
+}
+
+@page {
+  margin: .5cm;
+}
+
+/*** @media screen  ***/
+
+html,
+body {
+  background: #333231;
+}
+
+header:before {
+  /* CORNER PAGE EFFECT */
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-top: 12px solid #333;
+  border-left: 12px solid #ddd;
+  width: 0;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, .18);
+}
+
+}
+  </style>
+</head>
+<body>
+  <body>
+    <header>
+      <h1>FACTURE</h1>
+      <h2>PHARMA — NACHIT</h2>
+    </header>
+    <section class="flex">
+      <dl>
+        <dt>Facture #</dt>
+        <dd>20140603</dd>
+        <dt>Date de facturation</dt>
+        <dd>03.06.2014</dd>
+      </dl>
+    </section>
+    <section class="flex">
+      <dl class="bloc">
+        <dt>Facturé à:</dt>
+        <dd>
+          Company X &amp; Son Inc.<br>
+          2789 Some street,<br>
+          Big City, Québec, J3X 1J1
+        </dd>
+        <dl>
+          <dt>Attn</dt>
+          <dd>Mohamed NACHIT</dd>
+          <dt>Téléphone</dt>
+          <dd>(450) 555-2663</dd>
+          <dt>Courriel</dt>
+          <dd>bigboss@bigcompanylonglongemail.com</dd>
+        </dl>
+      </dl>
+      <dl class="bloc">
+        <dt>Status:</dt>
+        <dd>Processing</dd>
+        <dt>Période totale:</dt>
+        <dd>24 Mai au 2 Juin 2014</dd>
+      </dl>
+    </section>
+    <table>
+      <thead>
+        <tr>
+          <th>Période</th>
+          <th>Description</th>
+          <th>Heures</th>
+          <th>Taux</th>
+          <th>Montant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>24 Mai au 2 Juin</td>
+          <td>Dévelopement du jeu Tomatina</td>
+          <td>24&#8202;h</td>
+          <td>20&#8202;$</td>
+          <td>480&#8202;$</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">− Faire les chèques payable au nom de moi −</td>
+          <td>Total:</td>
+          <td>480&#8202;$</td>
+        </tr>
+      </tfoot>
+    </table>
+    <footer>
+      <p>École YOUCODE, Youssoufia | Tél. +2 392 3929 210 | <a href="nachitmed71@gmail.com">nachitmed71@gmail.com</a></p>
 </body>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-    $(function($) {
-      $('[data-numeric]').payment('restrictNumeric');
-      $('.cc-number').payment('formatCardNumber');
-      $('.cc-exp').payment('formatCardExpiry');
-      $('.cc-cvc').payment('formatCardCVC');
-      $.fn.toggleInputError = function(erred) {
-        this.parent('.form-group').toggleClass('has-error', erred);
-        return this;
-      };
-      $('form').submit(function(e) {
-        e.preventDefault();
-        var cardType = $.payment.cardType($('.cc-number').val());
-        $('.cc-number').toggleInputError(!$.payment.validateCardNumber($('.cc-number').val()));
-        $('.cc-exp').toggleInputError(!$.payment.validateCardExpiry($('.cc-exp').payment('cardExpiryVal')));
-        $('.cc-cvc').toggleInputError(!$.payment.validateCardCVC($('.cc-cvc').val(), cardType));
-        $('.cc-brand').text(cardType);
-        $('.validation').removeClass('text-danger text-success');
-        $('.validation').addClass($('.has-error').length ? 'text-danger' : 'text-success');
-      });
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/3.0.0/jquery.payment.min.js"></script>
-
 </html>
+
+<li class="active"></li>

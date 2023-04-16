@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-md-5 mr-auto">
                 <div class="border text-center">
-                    <img src="{{ asset('img/blogs/'.$shop_single->image) }}" alt="Image" class="img-fluid p-5">
+                    <img src="{{$shop_single->image}}" alt="Image" class="img-fluid p-5" style="border-radius: 50%; width: 270px; height: 370px;">
                 </div>
             </div>
             <div class="col-md-6">

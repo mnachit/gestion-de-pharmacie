@@ -1,7 +1,9 @@
 @extends('home')
 
 @section('content1')
-
+@php
+    session()->forget('orders');
+@endphp
 <div class="bg-light py-3">
     <div class="container">
       <div class="row">

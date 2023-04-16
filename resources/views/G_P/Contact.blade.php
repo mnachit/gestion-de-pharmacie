@@ -21,8 +21,8 @@
         </div>
         <div class="col-md-12">
   
-          <form action="#" method="post">
-  
+          <form action="{{route('email')}}" method="post">
+            @csrf
             <div class="p-3 p-lg-5 border">
               <div class="form-group row">
                 <div class="col-md-6">
