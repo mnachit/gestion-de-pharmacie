@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DarkMusic</title>
+    <title>Pharma-Nachit</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -42,10 +42,10 @@
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
         <!-- <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-info" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div> -->
+        <div class="spinner-border text-info" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div> -->
         <!-- Spinner End -->
 
 
@@ -65,8 +65,8 @@
                     <div class="ms-3">
                         {{-- @if (session('users')) --}}
                         {{-- @foreach ($users as $user)
-                                <h6 class="mb-0">{{ $user->username }}</h6>
-                            @endforeach --}}
+                            <h6 class="mb-0">{{ $user->username }}</h6>
+                        @endforeach --}}
                         {{-- @endif --}}
                         <h6 class="mb-0">{{ Auth::user()->username }}</h6>
                         <span>Admin</span>
@@ -109,22 +109,17 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
+                            <i class="fa fa-bell me-lg-2"><span class="number" style="font-weight: bold;"
+                                    id="number"></span> </i>
+
                             <span class="d-none d-lg-inline-flex">Notificatin</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
+                            <a class="dropdown-item">
+                                <div class="fw-normal mb-0">
+                                    <a href="/Receiving_requests" id="nino" class="link-light"></a>
+
+                                </div>
                                 <small>15 minutes ago</small>
                             </a>
                             <hr class="dropdown-divider">
@@ -144,7 +139,7 @@
                             <a href="#" class="dropdown-item">Settings</a>
                             <a href="{{ route('logout') }}" class="dropdown-item"
                                 onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">Log
+                            document.getElementById('logout-form').submit();">Log
                                 Out</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -167,7 +162,6 @@
         <script></script>
         <script src="{{ asset('dash/js/main.js') }}"></script>
         <script>
-            name1()
             function name1() {
                 let xhr = new XMLHttpRequest();
                 xhr.open("GET", "Notification/", true);
@@ -176,10 +170,55 @@
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         let data = JSON.parse(xhr.responseText);
-                        data.forEach(element => console.log(element));
+                        // console.log(data);
+                        if (Array.isArray(data)) {
+                            let notiContainer = document.getElementById('noti');
+                            data.forEach(function(item) {
+                                name(item)
+                            });
+                        }
                     }
                 };
-            };
+            }
+            name1();
+
+            let namesArray = [];
+
+            function name(id) {
+                let xhr = new XMLHttpRequest();
+                xhr.open("GET", "Show_User/" + id, true);
+                xhr.send();
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        let user = JSON.parse(xhr.responseText);
+                        console.log(user);
+                        let firstName = '';
+                        let lastName = '';
+                        for (let key in user) {
+                            if (key === "First") {
+                                firstName = user[key];
+                            } else if (key === "Last") {
+                                lastName = user[key];
+                            }
+                        }
+                        let nameDiv = document.createElement('div');
+                        nameDiv.textContent = 'Mr. ' + firstName + ' ' + lastName + ' bought a product\n';
+                        namesArray.push(nameDiv);
+
+                        // Update the notification count
+                        let numberSpan = document.getElementById('number');
+                        numberSpan.textContent = namesArray.length;
+
+                        let ninoDiv = document.getElementById('nino');
+                        ninoDiv.innerHTML = '';
+                        namesArray.forEach(function(div) {
+                            ninoDiv.appendChild(div);
+                        });
+                    }
+                };
+                
+            }
         </script>
 </body>
 

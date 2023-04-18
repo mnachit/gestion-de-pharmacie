@@ -57,20 +57,14 @@
                                             @endif
                                             <td>{{ $Rec->Address }}</td>
                                             <td>{{ $Rec->Num_tele }}</td>
-                                            {{-- @if ($Rec->Status == 'false') --}}
-                                                <td class="d-flex justify-content-around font-weight-bold">
-                                                    <a href="{{ route('remove_receiving_requests', $Rec->id) }}"
-                                                        type="submit" class="shop-tooltip close float-none text-danger"
-                                                        title="" data-original-title="Remove">×</a>
-                                                    {{-- </form> --}}
-                                                    <a href="{{ route('Cn_receiving_requests', $Rec->id) }}"
-                                                        class="shop-tooltip close float-none text-success" title=""
-                                                        data-original-title="Remove"><i
-                                                            class="bi bi-cart-check-fill"></i></a>
-                                                </td>
-                                            {{-- @else
-                                                <td><i class="bi bi-bag-check-fill text-success"></i></td>
-                                            @endif --}}
+                                            <td >
+                                                <a href="{{ route('remove_receiving_requests', $Rec->id) }}" type="submit"
+                                                    class="shop-tooltip close float-none text-danger" title=""
+                                                    data-original-title="Remove">×</a>
+                                                <a href="{{ route('Cn_receiving_requests', $Rec->id) }}"
+                                                    class="shop-tooltip close float-none text-success" title=""
+                                                    data-original-title="Remove"><i class="bi bi-cart-check-fill"></i></a>
+                                            </td>
                                             <td>pdf</td>
                                         </tr>
                                     @endforeach

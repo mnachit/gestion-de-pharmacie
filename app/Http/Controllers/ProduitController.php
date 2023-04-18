@@ -98,11 +98,14 @@ class ProduitController extends Controller
 
     public function Notification()
     {
-        
-        $data = DB::table('orders')
-        ->join('users', 'users.id', '=', 'orders.user_id')
-        ->join('produit', 'produit.id', '=', 'orders.product_id')
-        ->select('users.username', 'produit.Name', 'produit.Price', 'produit.image', 'produit.Price','produit.id','produit.Sold','produit.Quantity','orders.status');
+        $orders = orders::get();
+        $user_ids = $orders->pluck('user_id')->toArray();
+        return response()->json($user_ids);
+    }
+
+    public function Show_User($id)
+    {
+        $data = User::find($id);
         return response()->json($data);
     }
     /**

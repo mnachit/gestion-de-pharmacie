@@ -27,4 +27,6 @@ class orders extends Model
         'user_id',
         'Total',
     ];
+
+    
 }

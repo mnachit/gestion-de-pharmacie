@@ -8,6 +8,7 @@ use App\Http\Controllers\ShowDataController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\QrCodeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::POST('store/{id}',[ProduitController::class,'destroy'])->name('destroy');
     Route::GET('Update_Product/{id}',[ProduitController::class,'edit'])->name('product.update');
     Route::GET('Notification/',[ProduitController::class,'Notification']);
+    Route::GET('Show_User/{id}',[ProduitController::class,'Show_User']);
     Route::get('Add_Prduct',[ProduitController::class,'show']);
     Route::resource('/product',ProduitController::class);
 
@@ -109,6 +111,10 @@ Route::get('/shop-single/{id}', function () {
         Route::get('/Pdf/{id}',[PDFController::class,'generatePDF'])->name('PdfUser');
         // Route::view('/URI', 'G_P.pdf');
         Route::post('/email',[MailController::class,'email'])->name('email');
+        // Route::get('/qrcode', [QrCodeController::class, 'index']);
+        Route::view('/qrcode','G_P.qrcode');
+        Route::view('/qr','G_P.pdf1');
+
     });
     
 

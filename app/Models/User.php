@@ -33,6 +33,8 @@ class User extends Authenticatable
         'Region',
     ];
 
+    
+
     /**
      * The attributes that should be hidden for serialization.
      *

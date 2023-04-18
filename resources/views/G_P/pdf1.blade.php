@@ -62,52 +62,33 @@
             </tr>
         </thead>
         <tbody>
-            @php
+            {{-- @php
                 $Total = 0;
             @endphp
-            @foreach ($order as $key => $data)
+            @foreach ($order as $key => $data) --}}
                 <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td><img src="{{ $data->image }}" alt=""
-                            style="border-radius: 50%; width: 100px; height: 100px;"></td>
-                    <td>{{ $data->Name }}</td>
-                    @if ($data->Status == 'false')
-                        <td style="color: #e1f221bc; font-weight:bold">Processing</td>
-                    @elseif ($data->Status == 'true')
-                        <td style="color: #00ff48; font-weight:bold">Shipped</td>
-                    @else
-                        <td style="color: #ff0000; font-weight:bold">refuse</td>
-                    @endif
-                    <td>{{ $data->Quantity }}</td>
-                    @if ($data->Sold == 0)
-                        <td>${{ $data->Price }}</td>
-                    @else
-                        <td>${{ $data->Sold }}</td>
-                    @endif
-                    @if ($data->Sold == 0)
-                        <td>${{ $data->Price * $data->Quantity }}</td>
-                        @php
-                            $Total += $data->Price * $data->Quantity;
-                        @endphp
-                    @else
-                        <td>${{ $data->Sold * $data->Quantity }}</td>
-                        @php
-                            $Total += $data->Sold * $data->Quantity;
-                        @endphp
-                    @endif
+                    <td>13</td>
+                    <td>13</td>
+                    <td>13</td>
+                    <td>13</td>
+                    <td>13</td>
+                    <td>13</td>
+                    <td>13</td>
                     <td>
-                        <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate('http://google.com')) !!} ">
+                        <div class="qrcode">
+                            {!! QrCode::size(300)->generate('https://techvblogs.com/blog/generate-qr-code-laravel-9') !!}
+                        </div>
                     </td>
 
                 </tr>
-            @endforeach
+            {{-- @endforeach --}}
             <tr>
                 <td colspan="7" style="text-align:left;  font-weight:bold">Shipping</td>
-                <td>${{ $data->Shipping }}</td>
+                <td>$2</td>
             </tr>
             <tr>
                 <td colspan="7" style="text-align:left;  font-weight:bold">Total</td>
-                <td>${{ $Total + $data->Shipping }}</td>
+                <td>$2</td>
             </tr>
         </tbody>
     </table>
