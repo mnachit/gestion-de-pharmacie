@@ -26,6 +26,7 @@
 
     <!-- Libraries Stylesheet -->
     <link href="{{ asset('dash/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('dash/lib/owlcarousel/assets/parsley.css') }}" rel="stylesheet">
     <link href="{{ asset('dash/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('dash///cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dash///cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css') }}">
@@ -135,8 +136,8 @@
                         </a>
                         <div
                             class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="/ProfileAdmin" class="dropdown-item">My Profile</a>
+                            {{-- <a href="#" class="dropdown-item">Settings</a> --}}
                             <a href="{{ route('logout') }}" class="dropdown-item"
                                 onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">Log

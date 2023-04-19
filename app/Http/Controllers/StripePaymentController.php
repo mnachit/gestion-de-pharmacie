@@ -20,7 +20,9 @@ class StripePaymentController extends Controller
      */
     public function stripe()
     {
-        return view('stripe');
+        $test = new ShowDataController;
+        return $test->showNew();
+        // return view('G_P.index');
     }
 
     /**
@@ -59,6 +61,9 @@ class StripePaymentController extends Controller
                     if ($product) {
                         $product->Quantity -= intval($order['Quantity']);
                         $product->save();
+                        // $test = new PanierController;
+                        // $test->check();
+                        session()->forget('number');
                     }
                     // }
                     $Product = Panier::where('product_id', $order['product_id'])
@@ -67,6 +72,8 @@ class StripePaymentController extends Controller
                     if ($Product) {
                         $Product->delete();
                     }
+                    $uid1 = uniqid();
+                    session()->put('uid1', $uid1);
                 }
             }
             // $orders = session()->get('orders');
@@ -77,7 +84,7 @@ class StripePaymentController extends Controller
             // $test = new PanierController;
             // $orders = $test->nachit1();
             // $test->save();
-            return view("G_P.ThankYou");
+            return view("G_P.ThankYou", ['uid1' => $uid1]);
         } catch (CardException $e) {
             // Handle card errors
             Session::flash('error', $e->getError()->message);

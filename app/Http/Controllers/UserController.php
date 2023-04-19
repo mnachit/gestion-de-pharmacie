@@ -106,6 +106,55 @@ class UserController extends Controller
         return redirect('/Profile');
     }
 
+    public function Update_P1($id, Request $request)
+    {
+        // dd($request->all());
+        $user = User::find($id);
+
+        if ($request->file('image_profile')) {
+            $Photo = Cloudinary::upload($request->file('image_profile')->getRealPath(), [
+                "folder" => "product/",
+                "public_id" => "poster_" . time(),
+                "overwrite" => true
+            ]);
+        }
+        $url = Auth::user()->image;
+        $basename = basename($url);
+        $pathinfo = pathinfo($basename);
+        $public_id = $pathinfo['filename'];
+        Cloudinary::destroy($public_id);
+        if (!empty($Photo)) {
+            $user->First = $request->first;
+            $user->image = $Photo->getSecurePath();
+            $user->Last = $request->last;
+            $user->Num_tele = $request->num;
+            $user->Address = $request->address;
+            $user->Postcode = $request->post;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->Country = $request->country;
+            $user->Region = $request->state;
+            dd($request->all());
+        }
+        else{
+            $user->First = $request->first;
+            // $user->image = $Photo->getSecurePath();
+            $user->Last = $request->last;
+            $user->Num_tele = $request->num;
+            $user->Address = $request->address;
+            $user->Postcode = $request->post;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->Country = $request->country;
+            $user->Region = $request->state;
+        }
+
+        $user->update();
+
+        // dd($user);
+        return redirect()->back();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

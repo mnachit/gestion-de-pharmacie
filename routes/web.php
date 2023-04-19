@@ -47,6 +47,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::GET('Show_User/{id}',[ProduitController::class,'Show_User']);
     Route::get('Add_Prduct',[ProduitController::class,'show']);
     Route::resource('/product',ProduitController::class);
+        Route::view('/ProfileAdmin', 'Dash.Profile');
+        Route::POST('/Update-Profile1/{id}',[UserController::class,'Update_P1']);
 
     Route::get('/hh', [UserController::class, 'show']);
     Route::POST('/update-Product', [ProduitController::class,'update']);
@@ -93,7 +95,8 @@ Route::get('/shop-single/{id}', function () {
         Route::view('/Carte', 'G_P.carte')->name('Cartte');
         Route::GET('/panier/{id}',[PanierController::class,'addToPanier'])->name('carte')->middleware(['auth']);
         Route::get('/Carte',[PanierController::class,'ShowPainer']);
-        Route::get('/Carte1233',[PanierController::class,'nachit1'])->name('nachit');
+        Route::get('/Carte1233/{token}',[PanierController::class,'nachit1'])->name('nachit');
+        // Route::get('/thankyou/{token}',[PanierController::class,'thankyou']);
         Route::GET('Checkout',[PanierController::class,'Checkout'])->name('Checkout');
         Route::controller(StripePaymentController::class)->group(function(){
             Route::get('stripe', 'stripe');
@@ -104,7 +107,6 @@ Route::get('/shop-single/{id}', function () {
 
         Route::view('/Contact', 'G_P.Contact');
         Route::view('/Profile', 'G_P.Profile');
-        Route::view('/thankyou', 'G_P.ThankYou');
         Route::POST('/Update-Profile/{id}',[UserController::class,'Update_P'])->name('Update_Profile');
         // Route::view('/order-tracking', 'G_P.order')->name('');
         Route::get('/order-tracking',[PanierController::class,'Order_P'])->name('tracking');

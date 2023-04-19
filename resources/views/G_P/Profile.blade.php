@@ -2,9 +2,6 @@
 
 @section('content1')
     <style>
-        /* #test{
-        background: rgb(99, 39, 120)
-    } */
         .form-control:focus {
             box-shadow: none;
             border-color: #BA68C8
@@ -49,7 +46,7 @@
 
 
     <div class="container rounded bg-white mt-5 mb-5" id="test">
-        <form action="/Update-Profile/{{ Auth::user()->id }}" method="POST" enctype="multipart/form-data">
+        <form action="/Update-Profile/{{ Auth::user()->id }}" method="POST" enctype="multipart/form-data" data-parsley-validate>
             <div class="row">
                 <div class="col-md-3 border-right">
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
@@ -66,43 +63,38 @@
                         <div class="row mt-2">
                             <div class="col-md-6"><label class="labels">First</label><input type="text"
                                     class="form-control" placeholder="first name" value="{{ Auth::user()->First }}"
-                                    name="first"></div>
+                                    name="first" required></div>
                             <div class="col-md-6"><label class="labels">Last</label><input type="text"
                                     class="form-control" placeholder="last name" value="{{ Auth::user()->Last }}"
-                                    name="last"></div>
+                                    name="last" required></div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-12"><label class="labels">Mobile Number</label><input type="tel"
                                     class="form-control" placeholder="enter phone number"
-                                    value="{{ Auth::user()->Num_tele }}" name="num"></div>
+                                    value="{{ Auth::user()->Num_tele }}" name="num" required></div>
                             <div class="col-md-12"><label class="labels">Address Line </label><input type="text"
                                     class="form-control" placeholder="enter address line 1"
-                                    value="{{ Auth::user()->Address }}" name="address"></div>
+                                    value="{{ Auth::user()->Address }}" name="address" required></div>
                             <div class="col-md-12"><label class="labels">Postcode</label><input type="text"
                                     class="form-control" placeholder="enter Postcode" value="{{ Auth::user()->Postcode }}"
-                                    name="post"></div>
+                                    name="post" required></div>
                             <div class="col-md-12"><label class="labels">Email</label><input type="email"
                                     class="form-control" placeholder="enter" value="{{ Auth::user()->email }}"
-                                    name="email"></div>
+                                    name="email" required></div>
                             <div class="col-md-12"><label class="labels">Password</label><input type="password"
-                                    class="form-control" placeholder="enter new password" value="" name="password">
+                                    class="form-control" placeholder="enter new password" value="" name="password" required>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-6"><label class="labels">Country</label><input type="text"
                                     class="form-control" placeholder="country" value="{{ Auth::user()->Country }}"
-                                    name="country"></div>
+                                    name="country" required></div>
                             <div class="col-md-6"><label class="labels">State/Region</label><input type="text"
                                     class="form-control" placeholder="state" value="{{ Auth::user()->Region }}"
-                                    name="state"></div>
+                                    name="state" required></div>
                         </div>
                         <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save
                                 Profile</button></div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="p-3 py-5">
-                        balblablablablablabla
                     </div>
                 </div>
             </div>

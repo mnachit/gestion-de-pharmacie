@@ -25,7 +25,6 @@
 {{dd($var)}} --}}
 
 <div class="container px-3 my-5 clearfix">
-    <!-- Shopping cart table -->
     <div class="card">
         <div class="card-header">
             <h2 class="text-center">order tracking</h2>
@@ -58,6 +57,7 @@
                             @else
                             <td class="text-success">Shipped</td>
                             @endif --}}
+                            {{-- <td><a href="/Pdf/{{$Rec->created_at}}" type="submit">pdf</a></td> --}}
                             <td><a href="/Pdf/{{$Rec->created_at}}" type="submit">pdf</a></td>
                             <td><a href="/Contact" type="submit">Contact</a></td>
                       </tr>

@@ -195,7 +195,8 @@
                             id="searchbar" onkeyup="searche()"> --}}
                         <div class="search-wrapper ">
                             <div class="input-holder ">
-                                <input type="text" class="search-input" placeholder="Type to search" onkeyup="searche()" id="searchbar"/>
+                                <input type="text" class="search-input" placeholder="Type to search" onkeyup="searche()"
+                                    id="searchbar" />
                                 <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
                             </div>
                             <span class="close" onclick="searchToggle(this, event);"></span>
@@ -212,7 +213,11 @@
                                 style="border-radius: 50%; width: 270px; height: 370px;"></a>
                         <h3 class="text-dark"><a href="{{ route('shop-single', $show->id) }}"
                                 id="titlee_">{{ $show->Name }}</a></h3>
-                        <p class="price"><del>95.00</del> &mdash; $55.00</p>
+                        @if ($show->Sold == 0)
+                            <p class="price"><del>{{ $show->Price }}</p>
+                        @else
+                            <p class="price"><del>${{ $show->Price }}</del> &mdash; ${{ $show->Sold }}</p>
+                        @endif
                     </div>
                 @endforeach
 

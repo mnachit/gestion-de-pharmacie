@@ -58,7 +58,7 @@
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Subtotal</th>
-                <th>QR Code</th>
+                {{-- <th>QR Code</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -95,18 +95,20 @@
                             $Total += $data->Sold * $data->Quantity;
                         @endphp
                     @endif
-                    <td>
-                        <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate('http://google.com')) !!} ">
-                    </td>
+                    {{-- <td>
+                        <div>
+                            {!! QrCode::size(300)->generate('https://techvblogs.com/blog/generate-qr-code-laravel-9') !!}
+                        </div>
+                    </td> --}}
 
                 </tr>
             @endforeach
             <tr>
-                <td colspan="7" style="text-align:left;  font-weight:bold">Shipping</td>
+                <td colspan="6" style="text-align:left;  font-weight:bold">Shipping</td>
                 <td>${{ $data->Shipping }}</td>
             </tr>
             <tr>
-                <td colspan="7" style="text-align:left;  font-weight:bold">Total</td>
+                <td colspan="6" style="text-align:left;  font-weight:bold">Total</td>
                 <td>${{ $Total + $data->Shipping }}</td>
             </tr>
         </tbody>
@@ -119,3 +121,6 @@
 </body>
 
 </html>
+
+
+{{-- {!! QrCode::size(300)->generate('https://techvblogs.com/blog/generate-qr-code-laravel-9') !!} --}}

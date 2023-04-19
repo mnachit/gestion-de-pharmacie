@@ -119,9 +119,9 @@
 
     <script>
         const updateBtns = document.querySelectorAll('.updateBtn')
-        updateBtns.forEach(btn => btn.addEventListener('click', (e) => name(e.target.id)))
-
-        function name(id) {
+        updateBtns.forEach(btn => btn.addEventListener('click', (e) => {
+            let id = e.target.id
+            console.log(id);
             let xhr = new XMLHttpRequest();
             xhr.open("GET", "Update_Product/" + id, true);
             xhr.send();
@@ -138,8 +138,14 @@
                     document.getElementById('Price_P_id1').value = data.Price;
                     document.getElementById('Sold_P_id1').value = data.Sold;
                     document.getElementById('Quantity_P_id1').value = data.Quantity;
+
                 }
             };
-        };
+        }))
     </script>
+    <script
+    src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js" integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection

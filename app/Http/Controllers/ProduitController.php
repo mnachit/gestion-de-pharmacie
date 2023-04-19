@@ -93,6 +93,7 @@ class ProduitController extends Controller
     public function edit($id)
     {
         $data = Produit::find($id);
+        // dd($data);
         return response()->json($data);
     }
 
@@ -163,7 +164,7 @@ class ProduitController extends Controller
 
     public function Receiving()
     {
-        $order = orders::select('*')
+        $order = orders::select('*')->orderBy('id', 'desc')
             ->join('users', 'users.id', '=', 'orders.user_id')
             ->join('produit', 'produit.id', '=', 'orders.product_id')
             ->select('orders.created_at', 'orders.Status', 'orders.id', 'orders.Quantity', 'users.First', 'users.Address', 'users.Num_tele', 'users.Last', 'produit.Name', 'produit.Sold', 'produit.image', 'produit.Price', 'produit.Sold')

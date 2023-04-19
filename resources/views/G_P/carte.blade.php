@@ -33,7 +33,7 @@
     </style>
     <div class="container px-3 my-5 clearfix">
         <!-- Shopping cart table -->
-        <form class="card" method="GET" action="{{ route('nachit') }}">
+        <form class="card" method="GET" action="{{ route('nachit', $uid) }}" data-parsley-validate>
             @csrf
             <div class="card-header">
                 <h2>Shopping Cart</h2>
@@ -80,15 +80,17 @@
                                     <td class="text-right font-weight-semibold align-middle p-4 Prix__T"
                                         id="test2_{{ $key }}">${{ $Cartes->Sold }}</td>
                                     @if (intval($Cartes->Quantity) < 15)
-                                        <td class="align-middle p-4"><input type="number" min="0" max="1"
+                                        <td class="align-middle p-4"><input type="number" min="1" max="1"
                                                 class="form-control text-center test mohamednachit"
-                                                name="product_qty_{{ $key }}" value="0"
-                                                id="test_{{ $key }}" onchange="test({{ $key }})"></td>
+                                                name="product_qty_{{ $key }}" value=""
+                                                id="test_{{ $key }}" onchange="test({{ $key }})"
+                                                required></td>
                                     @else
                                         <td class="align-middle p-4"><input type="number" min="1"
                                                 class="form-control text-center test mohamednachit"
-                                                name="product_qty_{{ $key }}" value="1"
-                                                id="test_{{ $key }}" onchange="test({{ $key }})"></td>
+                                                name="product_qty_{{ $key }}" value=""
+                                                id="test_{{ $key }}" onchange="test({{ $key }})"
+                                                required></td>
                                     @endif
                                     {{-- @if ($Cartes->Sold == 0) --}}
                                     <td type="number" class="text-right font-weight-semibold align-middle p-4"
@@ -137,7 +139,7 @@
                         <a href="#modal-C" data-bs-toggle="modal" type="submit"
                             class="btn btn-lg btn-primary mt-2">Checkout</a>
                     @else
-                        <input type="submit" class="btn btn-lg btn-primary mt-2">
+                        <input onclick="checkCheckbox()" type="submit" class="btn btn-lg btn-primary mt-2">
                     @endif
                 </div>
 
@@ -198,7 +200,7 @@
             let quntite = parseInt(document.getElementById('test_' + key).value);
 
             let oldTotal = parseInt(document.getElementById('total_' + key).textContent.replace("$",
-            "")); // Get the old total value
+                "")); // Get the old total value
             let total = price * quntite;
 
             if (sold > 0) {
@@ -254,9 +256,6 @@
             console.log(chheck);
             if (chheck >= 1) {
                 sessionStorage.setItem('TotalP', chheck);
-                window.location.href = "/Checkout";
-            } else if (chheck <= 0) {
-                alert('Please select input element.');
             }
         }
         //     function keyy(key) {

@@ -47,7 +47,6 @@ class ShowDataController extends Controller
         $Product = Produit::orderBy('id', 'desc')->take(3)->get();
         return view('G_P.index', ['Data_Shop1' => $Product]);
 
-
     }
 
 }

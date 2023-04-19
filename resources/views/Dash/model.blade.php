@@ -23,29 +23,29 @@
 <div class="modal fade mt-5" id="modal-task2">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="{{ route('product.store') }}"  id="form-task" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('product.store') }}"  id="form-task" enctype="multipart/form-data" data-parsley-validate>
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title text-danger">Add Product</h5>
                     <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
                 </div>
                 <div class="modal-body">
-                    <input type="file" name="image_pro">
+                    <input type="file" name="image_pro" required>
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Date</label>
-                    <input type="datetime-local" name="Date_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Date_P_id"/>
+                    <input type="datetime-local" name="Date_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Date_P_id" required/>
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Nome Product</label>
-                    <input type="text" name="Nome_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Nome_P_id"/>
+                    <input type="text" name="Nome_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Nome_P_id" required/>
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Description</label>
-                    <textarea name="Description_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Description_P_id" ></textarea>
+                    <textarea name="Description_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Description_P_id" required></textarea>
                 </div>
                 <div class="modal-body">
-                    <select class="form-select" style="background-color : #DDDDDD" name="Produit">
+                    <select class="form-select" style="background-color : #DDDDDD" name="Produit" required>
                         <option selected>Open this select menu</option>
                         <option value="produit cosmétique">produit cosmétique</option>
                         <option value=" COMPLÉMENTS ALIMENTAIRES"> COMPLÉMENTS ALIMENTAIRES</option>
@@ -55,15 +55,15 @@
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Price</label>
-                    <input type="text" name="Price_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Price_P_id"/>
+                    <input type="text" name="Price_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Price_P_id" required/>
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Sold (option)</label>
-                    <input type="number" name="Sold_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Sold_P_id"/>
+                    <input type="number" name="Sold_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Sold_P_id" required/>
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Quantity</label>
-                    <input type="text" name="Quantity_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Quantity_P_id"/>
+                    <input type="text" name="Quantity_P" class="form-control text-dark" style="background-color : #DDDDDD" id="Quantity_P_id" required/>
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn btn-white" data-bs-dismiss="modal">Cancel</a>
@@ -78,7 +78,12 @@
 <div class="modal fade mt-5" id="modal-edit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="{{ url('update-Product')}}"  id="form-task" enctype="multipart/form-data">
+            <div id="spinner" class="d-flex justify-content-center">
+                Loading...
+            </div>
+            <form method="POST" action="{{ url('update-Product')}}"  id="form-task" enctype="multipart/form-data" class="
+            document.getElementById('form-task').classList.remove('d-none');
+            document.getElementById('spinner').classList.add('d-none');" data-parsley-validate>
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title text-danger">Update Product</h5>
@@ -86,23 +91,23 @@
                     <input type="hidden" id="id_Product1" name="id_product">
                 </div>
                 <div class="modal-body">
-                    <img class="card-img-top rounded-circle w-50 h-50" src="" alt="..." id="img" style="margin-left:2.7cm" />
-                    <input type="file" name="image_pro1">
+                    <img class="card-img-top rounded-circle w-50 h-50" src="" alt="..." id="img" style="margin-left:2.7cm"/>
+                    <input type="file" name="image_pro1" required>
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Date</label>
-                    <input type="datetime" name="Date_P1" class="form-control text-dark" style="background-color : #DDDDDD" id="Date_P_id1"/>
+                    <input type="datetime" name="Date_P1" class="form-control text-dark" style="background-color : #DDDDDD" id="Date_P_id1" required/>
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Nome Product</label>
-                    <input type="text" name="Nome_P1" class="form-control text-dark" style="background-color : #DDDDDD" id="Nome_P_id1"/>
+                    <input type="text" name="Nome_P1" class="form-control text-dark" style="background-color : #DDDDDD" id="Nome_P_id1" required/>
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Description</label>
-                    <textarea name="Description_P1" class="form-control text-dark" style="background-color : #DDDDDD" id="Description_P_id1" ></textarea>
+                    <textarea name="Description_P1" class="form-control text-dark" style="background-color : #DDDDDD" id="Description_P_id1" required></textarea>
                 </div>
                 <div class="modal-body">
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" required>
                         <option selected>Open this select menu</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
@@ -111,15 +116,15 @@
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Price</label>
-                    <input type="text" name="Price_P1" class="form-control text-dark" style="background-color : #DDDDDD" id="Price_P_id1"/>
+                    <input type="text" name="Price_P1" class="form-control text-dark" style="background-color : #DDDDDD" id="Price_P_id1" required/>
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Sold (option)</label>
-                    <input type="text" name="Sold_P1" class="form-control text-dark" style="background-color : #DDDDDD" id="Sold_P_id1"/>
+                    <input type="text" name="Sold_P1" class="form-control text-dark" style="background-color : #DDDDDD" id="Sold_P_id1" required/>
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Quantity</label>
-                    <input type="text" name="Quantity_P1" class="form-control text-dark" style="background-color : #DDDDDD" id="Quantity_P_id1"/>
+                    <input type="text" name="Quantity_P1" class="form-control text-dark" style="background-color : #DDDDDD" id="Quantity_P_id1" required/>
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn btn-white" data-bs-dismiss="modal">Cancel</a>

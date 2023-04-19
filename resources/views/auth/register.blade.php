@@ -34,6 +34,12 @@
 		      		            </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                                    {{-- @if (session()->get('Text')) --}}
+                                    {{-- @php
+                                        dd(session()->get('test'));
+                                    @endphp --}}
+                                    {{-- <h6>erour in email</h6> --}}
+                                    {{-- @endif --}}
                                 </div>
                                 <div class="form-group">
                                     <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>

@@ -58,7 +58,7 @@ class PanierController extends Controller
         }
     }
 
-    public function ShowPainer()
+    public function ShowPainer(Request $request)
     {
         $user = Auth::user();
         $panierItems = DB::table('panier')
@@ -78,12 +78,22 @@ class PanierController extends Controller
                 $totalPrice += $item->Sold;
             }
         }
-        return view('G_P.carte',['Carte' => $panierItems, 'PrixTotal' => $totalPrice]);
+
+
+        $uid = uniqid();
+        session()->put('uid',$uid);
+        
+
+        return view('G_P.carte',['Carte' => $panierItems, 'PrixTotal' => $totalPrice,'uid'=>$uid]);
     }
 
-    public function Checkout()
+    public function Checkout(Request $request, string $token)
     {
-        Session::put('index_page_visited', true);
+        dd($token,session()->get('uid'));
+
+        if($token!=session()->get('uid')) {
+            return redirect()->to('index');
+        }
 
         return view('G_P.Checkout');
     }
@@ -159,8 +169,20 @@ class PanierController extends Controller
         return redirect()->back();
     }
 
-    public function nachit1(Request $request)
+    public function thankyou($token)
     {
+        if($token!=session()->get('uid1')) {
+            return redirect()->to('index');
+        }
+    }
+    public function nachit1(Request $request,$token)
+    {
+        // dd($token,session()->get('uid'));
+
+        if($token!=session()->get('uid')) {
+            return redirect()->to('index');
+        }
+
         // dd(count($request->all())/2);
         $orders = session()->get('orders', []);
         for($i = 0; $i <= count($request->all())/2; $i++)

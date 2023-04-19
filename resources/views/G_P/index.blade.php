@@ -43,7 +43,11 @@
             <a href="{{ route('shop-single',$datta->id)}}"> <img src="{{$datta->image}}" alt="Image" style="border-radius: 50%; width: 270px; height: 370px;"></a>
             
             <h3 class="text-dark"><a href="{{ route('shop-single',$datta->id)}}">{{$datta->Name}}</a></h3>
-            <p class="price"><del>95.00</del> &mdash; $55.00</p>
+            @if($datta->Sold == 0)
+            <p class="price"><del>{{$datta->Price}}</p>
+            @else
+            <p class="price"><del>${{$datta->Price}}</del> &mdash; ${{$datta->Sold}}</p>
+            @endif
           </div>
             @endforeach
           </div>
